@@ -46,6 +46,10 @@
     <Compile Include="UserInfoService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ElimWeChatSign.Core\ElimWeChatSign.Core.csproj">
+      <Project>{01f718fe-b1ab-4e21-823b-63cda23ecf89}</Project>
+      <Name>ElimWeChatSign.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ElimWeChatSign.IService\ElimWeChatSign.IService.csproj">
       <Project>{5166d76d-4287-419c-87e4-9a5ca19d6b80}</Project>
       <Name>ElimWeChatSign.IService</Name>

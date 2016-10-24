@@ -51,6 +51,10 @@
       <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.6.9.9\lib\net45\MySql.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -98,6 +102,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <None Include="Properties\PublishProfiles\ElimSign_AL.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -119,6 +124,10 @@
     <ProjectReference Include="..\ElimWeChatSign.Business\ElimWeChatSign.Business.csproj">
       <Project>{a351d64e-1d51-4270-bc05-ea1e3c3654d8}</Project>
       <Name>ElimWeChatSign.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ElimWeChatSign.Core\ElimWeChatSign.Core.csproj">
+      <Project>{01F718FE-B1AB-4E21-823B-63CDA23ECF89}</Project>
+      <Name>ElimWeChatSign.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\ElimWeChatSign.Model\ElimWeChatSign.Model.csproj">
       <Project>{4cbb15c6-4b7e-43f6-944e-b6809edf3017}</Project>
