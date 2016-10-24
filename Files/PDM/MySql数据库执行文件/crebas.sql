@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2016/10/24 11:16:33                          */
+/* Created on:     2016/10/24 13:51:34                          */
 /*==============================================================*/
 
 
@@ -36,6 +36,7 @@ create table UserInfo
    UserId               varchar(20) not null comment '用户标识,主键',
    UserName             varchar(30) not null comment '用户名',
    Mobile               varchar(30) not null comment '手机号码',
+   Password             varchar(50) not null comment '密码',
    Email                varchar(30) not null comment '邮箱',
    UserType             int not null comment '用户类型(0:普通;1:同工;9999:管理员)',
    UpdateTime           datetime not null comment '最后修改时间',
