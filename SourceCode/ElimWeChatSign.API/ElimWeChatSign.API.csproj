@@ -128,10 +128,6 @@
       <Project>{02c7974e-8d57-44d2-8a18-c5323f3c3526}</Project>
       <Name>ElimWeChatSign.Service</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ElimWeChatSign.Core\ElimWeChatSign.Core.csproj">
-      <Project>{01f718fe-b1ab-4e21-823b-63cda23ecf89}</Project>
-      <Name>ElimWeChatSign.Core</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
