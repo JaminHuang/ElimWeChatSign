@@ -1,0 +1,74 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 Core", "01 Core", "{343F7BDB-B7C0-43AF-9533-B05754B0EBFF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 Entity", "02 Entity", "{37170B4D-5C5F-40E0-8A5B-921838EC5856}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03 Service", "03 Service", "{1BDB0F74-B207-45AD-B379-0218EDB4EF91}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04 Business", "04 Business", "{344BAB65-56F0-4522-B249-94EDF6EACB24}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05 Application", "05 Application", "{7B55C801-5F66-4977-A935-E61709AF3329}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "06 JobService", "06 JobService", "{E4A308AD-8123-4D94-AF5F-AA85126BD18E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "07 Test", "07 Test", "{500D4331-08D2-454E-89AB-C9858404CBC1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElimWeChatSign.Core", "ElimWeChatSign.Core\ElimWeChatSign.Core.csproj", "{01F718FE-B1AB-4E21-823B-63CDA23ECF89}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElimWeChatSign.Model", "ElimWeChatSign.Model\ElimWeChatSign.Model.csproj", "{4CBB15C6-4B7E-43F6-944E-B6809EDF3017}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElimWeChatSign.IService", "ElimWeChatSign.IService\ElimWeChatSign.IService.csproj", "{5166D76D-4287-419C-87E4-9A5CA19D6B80}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElimWeChatSign.Service", "ElimWeChatSign.Service\ElimWeChatSign.Service.csproj", "{02C7974E-8D57-44D2-8A18-C5323F3C3526}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElimWeChatSign.Business", "ElimWeChatSign.Business\ElimWeChatSign.Business.csproj", "{A351D64E-1D51-4270-BC05-EA1E3C3654D8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElimWeChatSign.API", "ElimWeChatSign.API\ElimWeChatSign.API.csproj", "{13EDFEF3-3DAB-484C-8F33-7F8B4952D11E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{01F718FE-B1AB-4E21-823B-63CDA23ECF89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01F718FE-B1AB-4E21-823B-63CDA23ECF89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01F718FE-B1AB-4E21-823B-63CDA23ECF89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01F718FE-B1AB-4E21-823B-63CDA23ECF89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CBB15C6-4B7E-43F6-944E-B6809EDF3017}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CBB15C6-4B7E-43F6-944E-B6809EDF3017}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CBB15C6-4B7E-43F6-944E-B6809EDF3017}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CBB15C6-4B7E-43F6-944E-B6809EDF3017}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5166D76D-4287-419C-87E4-9A5CA19D6B80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5166D76D-4287-419C-87E4-9A5CA19D6B80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5166D76D-4287-419C-87E4-9A5CA19D6B80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5166D76D-4287-419C-87E4-9A5CA19D6B80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02C7974E-8D57-44D2-8A18-C5323F3C3526}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02C7974E-8D57-44D2-8A18-C5323F3C3526}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02C7974E-8D57-44D2-8A18-C5323F3C3526}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02C7974E-8D57-44D2-8A18-C5323F3C3526}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A351D64E-1D51-4270-BC05-EA1E3C3654D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A351D64E-1D51-4270-BC05-EA1E3C3654D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A351D64E-1D51-4270-BC05-EA1E3C3654D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A351D64E-1D51-4270-BC05-EA1E3C3654D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13EDFEF3-3DAB-484C-8F33-7F8B4952D11E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13EDFEF3-3DAB-484C-8F33-7F8B4952D11E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13EDFEF3-3DAB-484C-8F33-7F8B4952D11E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13EDFEF3-3DAB-484C-8F33-7F8B4952D11E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{01F718FE-B1AB-4E21-823B-63CDA23ECF89} = {343F7BDB-B7C0-43AF-9533-B05754B0EBFF}
+		{4CBB15C6-4B7E-43F6-944E-B6809EDF3017} = {37170B4D-5C5F-40E0-8A5B-921838EC5856}
+		{5166D76D-4287-419C-87E4-9A5CA19D6B80} = {1BDB0F74-B207-45AD-B379-0218EDB4EF91}
+		{02C7974E-8D57-44D2-8A18-C5323F3C3526} = {1BDB0F74-B207-45AD-B379-0218EDB4EF91}
+		{A351D64E-1D51-4270-BC05-EA1E3C3654D8} = {344BAB65-56F0-4522-B249-94EDF6EACB24}
+		{13EDFEF3-3DAB-484C-8F33-7F8B4952D11E} = {7B55C801-5F66-4977-A935-E61709AF3329}
+	EndGlobalSection
+EndGlobal

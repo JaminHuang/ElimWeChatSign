@@ -38,7 +38,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="Titan">
-      <HintPath>..\..\Files\ReFrence\Titan.dll</HintPath>
+      <HintPath>..\..\Files\Refrences\Titan.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
