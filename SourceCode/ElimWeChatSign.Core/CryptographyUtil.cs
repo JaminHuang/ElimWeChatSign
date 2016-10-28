@@ -10,10 +10,10 @@ namespace ElimWeChatSign.Core
 	public static class CryptographyUtil
 	{
 		#region AES加解密
-		private const string ServerAuthTokenKey = "elimusic-server"; //加密服务端AuthToken
+		private const string ServerAuthTokenKey = "elimusic--server"; //加密服务端AuthToken
 		private static readonly byte[] ServerAuthTokenIv = { 0xC, 1, 0xB, 3, 0x5B, 0xD, 5, 4, 0xF, 7, 9, 0x17, 1, 0xA, 6, 8 };
 
-		private const string ClientAuthTokenKey = "elimusic-client";//加密客户端AuthToken
+		private const string ClientAuthTokenKey = "elimusic--client";//加密客户端AuthToken
 		private static readonly byte[] ClientAuthTokenIv = { 0x38, 0x31, 0x37, 0x34, 0x36, 0x33, 0x35, 0x33, 0x32, 0x31, 0x34, 0x38, 0x37, 0x36, 0x35, 0x32 };
 
 		/// <summary>

@@ -8,6 +8,9 @@ using Titan;
 
 namespace ElimWeChatSign.Service
 {
+    /// <summary>
+    /// 用户相关服务
+    /// </summary>
 	public class UserInfoService : IUserInfoSercive
 	{
 		/// <summary>
@@ -97,5 +100,20 @@ namespace ElimWeChatSign.Service
 			uiList.Select(query);
 			return uiList.Items;
 		}
-	}
+
+	    /// <summary>
+	    /// 根据条件搜索列表
+	    /// </summary>
+	    /// <param name="userName">姓名[模糊]</param>
+	    /// <returns></returns>
+	    public List<UserInfo> List(string userName)
+	    {
+            var uiList = new UserInfos();
+            var query = new QueryExpression();
+            query.Selects.Add(UserInfoProperties.ALL);
+            query.Wheres.Add(UserInfoProperties.UserName.Like(userName));
+            uiList.Select(query);
+            return uiList.Items;
+        }
+    }
 }

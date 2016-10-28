@@ -42,9 +42,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IRptSignService.cs" />
     <Compile Include="IUserInfoSercive.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="IUserPlanService.cs" />
+    <Compile Include="IUserSignService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

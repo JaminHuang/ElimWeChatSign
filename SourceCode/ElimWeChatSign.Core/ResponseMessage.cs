@@ -74,11 +74,6 @@ namespace ElimWeChatSign.Core
 		/// <summary>
 		/// 账号或密码有误
 		/// </summary>
-		NameOrPwdError = 1108,
-		/// <summary>
-		/// socket
-		/// 连接超时
-		/// </summary>
-		SocketOverTime = 1201
+		NameOrPwdError = 1108
 	}
 }

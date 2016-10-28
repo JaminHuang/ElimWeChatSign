@@ -21,14 +21,14 @@ namespace ElimWeChatSign.Business
 		/// <param name="res"></param>
 		public void Login(ReqUserLogin req, ref ResponseMessage res)
 		{
-			if (req.mobile.IsNull() || req.pwd.IsNull())
+			if (req.mobile.IsNull() || req.password.IsNull())
 			{
 				res.Code = ResponseCode.RequireParamLack;
 				res.Content = "缺少必填参数";
 			}
 			else
 			{
-				var cryPassword = CryptographyUtil.AESEncryServer(req.pwd);
+				var cryPassword = CryptographyUtil.AESEncryServer(req.password);
 				var userInfo = userInfoSercive.Login(req.mobile, cryPassword);
 				if (userInfo == null)
 				{
@@ -37,6 +37,48 @@ namespace ElimWeChatSign.Business
 				}
 				res.Code = ResponseCode.Success;
 			}
+		}
+
+		/// <summary>
+		/// 注册
+		/// </summary>
+		/// <param name="req"></param>
+		/// <param name="res"></param>
+		public void Reg(ReqRegUser req, ref ResponseMessage res)
+		{
+			if (req.mobile.IsNull() || req.password.IsNull() || req.userName.IsNull())
+			{
+				res.Code = ResponseCode.RequireParamLack;
+				res.Content = "缺少必填参数";
+			}
+			else
+			{
+				if (!req.mobile.IsMobileNum())
+				{
+					res.Code = ResponseCode.RequestParamInvalid;
+					res.Content = "手机号码格式不正确";
+					return;
+				}
+				if (!req.userName.IsNameCn())
+				{
+					res.Code = ResponseCode.RequestParamInvalid;
+					res.Content = "姓名格式不正确";
+					return;
+				}
+				var cryPassword = CryptographyUtil.AESEncryServer(req.password);
+				var model = new UserInfo
+				{
+					UserName = req.userName,
+					Mobile = req.mobile,
+					Password = cryPassword,
+					Email = "",
+					UserType = 1
+				};
+				var userInfo = userInfoSercive.AddOrUpdate(model);
+				res.Code = ResponseCode.Success;
+				res.Content = userInfo;
+			}
+
 		}
 
 		/// <summary>
@@ -57,5 +99,15 @@ namespace ElimWeChatSign.Business
 			res.Code = ResponseCode.Success;
 			res.Content = resDate;
 		}
+
+        /// <summary>
+        /// 修改用户信息
+        /// </summary>
+        /// <param name="req"></param>
+        /// <param name="res"></param>
+        public void Update(ReqUpdateUser req, ref ResponseMessage res)
+        {
+
+        }
 	}
 }

@@ -3,6 +3,9 @@ using ElimWeChatSign.Model;
 
 namespace ElimWeChatSign.IService
 {
+    /// <summary>
+    /// 用户相关服务接口
+    /// </summary>
 	public interface IUserInfoSercive
 	{
 		/// <summary>
@@ -46,5 +49,12 @@ namespace ElimWeChatSign.IService
 		/// </summary>
 		/// <returns></returns>
 		List<UserInfo> List();
+
+        /// <summary>
+        /// 根据条件搜索列表
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+	    List<UserInfo> List(string userName);
 	}
 }
