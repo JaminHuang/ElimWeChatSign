@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ElimWeChatSign.Core;
+using ElimWeChatSign.IService;
 using ElimWeChatSign.Model;
 using Titan;
 
 namespace ElimWeChatSign.Service
 {
-    public class RptSignService
+    public class RptSignService : IRptSignService
     {
         /// <summary>
         /// 添加或修改

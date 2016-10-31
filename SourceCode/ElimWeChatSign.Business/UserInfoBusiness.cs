@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using ElimWeChatSign.Core;
 using ElimWeChatSign.IService;
 using ElimWeChatSign.Model;
-using ElimWeChatSign.Service;
 
 namespace ElimWeChatSign.Business
 {
-	public class UserInfoBusiness
+    public class UserInfoBusiness
 	{
-		IUserInfoSercive userInfoSercive = new UserInfoService();
+		IUserInfoSercive userInfoSercive;
 
 		/// <summary>
 		/// 登录
@@ -107,7 +102,26 @@ namespace ElimWeChatSign.Business
         /// <param name="res"></param>
         public void Update(ReqUpdateUser req, ref ResponseMessage res)
         {
-
+            if (req.userId.IsNull())
+            {
+                res.Code = ResponseCode.RequireParamLack;
+                res.Content = "缺少必填参数";
+            }
+            else
+            {
+                var model = new UserInfo
+                {
+                    UserId = req.userId,
+                    UserName = req.userName,
+                    Mobile = req.mobile,
+                    Password = req.password,
+                    Email = req.email,
+                    UserType = req.userType
+                };
+                var user = userInfoSercive.AddOrUpdate(model);
+                res.Code = ResponseCode.Success;
+                res.Content = user;
+            }
         }
 	}
 }

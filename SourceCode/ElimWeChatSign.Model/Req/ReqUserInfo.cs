@@ -73,6 +73,6 @@ namespace ElimWeChatSign.Model
         /// <summary>
         /// 类型
         /// </summary>
-        public string userType { get; set; }
+        public int userType { get; set; }
     }
 }

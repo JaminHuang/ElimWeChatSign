@@ -68,6 +68,7 @@ namespace ElimWeChatSign.Service
                 query.Wheres.Add(UserPlanProperties.StartDate.GreaterEqual(startDate));
             if (endDate != null)
                 query.Wheres.Add(UserPlanProperties.EndDate.LessEqual(endDate));
+            query.OrderBys.Add(UserPlanProperties.UpdateTime.Desc);
 
             var upList = new UserPlans();
             upList.Select(query);
