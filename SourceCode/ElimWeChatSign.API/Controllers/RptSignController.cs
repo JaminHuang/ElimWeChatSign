@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
+﻿using System.Web.Http;
 using ElimWeChatSign.Business;
 using ElimWeChatSign.Model;
 
@@ -13,10 +8,26 @@ namespace ElimWeChatSign.API.Controllers
     {
         private RptSignBusiness rptSignBusiness = new RptSignBusiness();
 
+        /// <summary>
+        /// 添加报表
+        /// </summary>
+        /// <param name="req"></param>
         [HttpPost]
-        public void Add(ReqRptUserAdd req)
+        public IHttpActionResult Add(ReqRptUserAdd req)
         {
             rptSignBusiness.Add(req, ref responseMessage);
+            return Json(responseMessage);
+        }
+
+        /// <summary>
+        /// 获取列表
+        /// </summary>
+        /// <param name="req"></param>
+        [HttpPost]
+        public IHttpActionResult List(ReqRptList req)
+        {
+            rptSignBusiness.List(req,ref responseMessage);
+            return Json(responseMessage);
         }
     }
 }

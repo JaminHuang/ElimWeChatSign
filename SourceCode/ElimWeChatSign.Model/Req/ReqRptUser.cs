@@ -29,7 +29,7 @@ namespace ElimWeChatSign.Model
         public string bookTask { get; set; }
     }
 
-    public class ReqList
+    public class ReqRptList
     {
         /// <summary>
         /// 姓名[模糊]

@@ -40,7 +40,7 @@ namespace ElimWeChatSign.Business
         /// </summary>
         /// <param name="req"></param>
         /// <param name="res"></param>
-        public void List(ReqList req, ref ResponseMessage res)
+        public void List(ReqRptList req, ref ResponseMessage res)
         {
             var list = rptSignService.List(req.userName);
             res.Code = ResponseCode.Success;

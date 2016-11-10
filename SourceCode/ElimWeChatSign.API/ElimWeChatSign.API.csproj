@@ -121,6 +121,8 @@
     <Compile Include="Base.cs" />
     <Compile Include="Controllers\RptSignController.cs" />
     <Compile Include="Controllers\UserInfoController.cs" />
+    <Compile Include="Controllers\UserPlanController.cs" />
+    <Compile Include="Controllers\UserSignController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
