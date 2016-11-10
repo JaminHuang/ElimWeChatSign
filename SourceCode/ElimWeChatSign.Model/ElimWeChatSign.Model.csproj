@@ -46,11 +46,13 @@
     <Compile Include="Entities.cs" />
     <Compile Include="EntityBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Req\ReqRptUser.cs" />
-    <Compile Include="Req\ReqUserInfo.cs" />
-    <Compile Include="Req\ReqUserPlan.cs" />
     <Compile Include="Req\ReqUserSign.cs" />
-    <Compile Include="Res\ResUserLogin.cs" />
+    <Compile Include="Res\ResRptSign.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Res\ResUserInfo.cs" />
+    <Compile Include="Res\ResUserPlan.cs" />
+    <Compile Include="Res\ResUserSign.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

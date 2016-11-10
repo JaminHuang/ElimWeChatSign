@@ -73,7 +73,7 @@ namespace ElimWeChatSign.Core
         /// </summary>
         MobileError = 8304,
         /// <summary>
-        /// 密码错误
+        /// 用户名或密码错误
         /// </summary>
         NameOrPwdError = 8305,
         /// <summary>

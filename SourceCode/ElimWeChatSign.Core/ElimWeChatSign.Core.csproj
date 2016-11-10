@@ -42,6 +42,7 @@
     <Compile Include="CryptographyUtil.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="CustomerException.cs" />
     <Compile Include="ExtendUtil.cs">
       <SubType>Code</SubType>
     </Compile>
