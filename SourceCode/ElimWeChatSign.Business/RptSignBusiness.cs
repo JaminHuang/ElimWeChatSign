@@ -17,7 +17,7 @@ namespace ElimWeChatSign.Business
         {
             if (req.userId.IsNull() || req.planId.IsNull())
             {
-                res.Code = ResponseCode.RequireParamLack;
+                res.Code = ResponseCode.ParamValueInvalid;
                 res.Content = "缺少必填参数";
             }
             else

@@ -61,10 +61,6 @@
       <Project>{4cbb15c6-4b7e-43f6-944e-b6809edf3017}</Project>
       <Name>ElimWeChatSign.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ElimWeChatSign.Service\ElimWeChatSign.Service.csproj">
-      <Project>{02c7974e-8d57-44d2-8a18-c5323f3c3526}</Project>
-      <Name>ElimWeChatSign.Service</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

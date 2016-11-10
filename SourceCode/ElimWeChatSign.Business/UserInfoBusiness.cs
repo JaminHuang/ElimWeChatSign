@@ -7,7 +7,8 @@ namespace ElimWeChatSign.Business
 {
     public class UserInfoBusiness
 	{
-		IUserInfoSercive userInfoSercive;
+		private IUserInfoSercive userInfoSercive;
+        
 
 		/// <summary>
 		/// 登录
@@ -18,7 +19,7 @@ namespace ElimWeChatSign.Business
 		{
 			if (req.mobile.IsNull() || req.password.IsNull())
 			{
-				res.Code = ResponseCode.RequireParamLack;
+				res.Code = ResponseCode.ParamValueInvalid;
 				res.Content = "缺少必填参数";
 			}
 			else
@@ -43,23 +44,32 @@ namespace ElimWeChatSign.Business
 		{
 			if (req.mobile.IsNull() || req.password.IsNull() || req.userName.IsNull())
 			{
-				res.Code = ResponseCode.RequireParamLack;
+				res.Code = ResponseCode.ParamValueInvalid;
 				res.Content = "缺少必填参数";
 			}
 			else
 			{
 				if (!req.mobile.IsMobileNum())
 				{
-					res.Code = ResponseCode.RequestParamInvalid;
+					res.Code = ResponseCode.MobileError;
 					res.Content = "手机号码格式不正确";
 					return;
 				}
 				if (!req.userName.IsNameCn())
 				{
-					res.Code = ResponseCode.RequestParamInvalid;
+					res.Code = ResponseCode.UserNameError;
 					res.Content = "姓名格式不正确";
 					return;
 				}
+                var isExist = userInfoSercive.Exist(req.mobile);
+                //判断该用户是否已存在
+                if (isExist)
+			    {
+                    res.Code = ResponseCode.UserInvalid;
+                    res.Content = "该用户已存在";
+                    return;
+                }
+
 				var cryPassword = CryptographyUtil.AESEncryServer(req.password);
 				var model = new UserInfo
 				{
@@ -104,7 +114,7 @@ namespace ElimWeChatSign.Business
         {
             if (req.userId.IsNull())
             {
-                res.Code = ResponseCode.RequireParamLack;
+                res.Code = ResponseCode.ParamValueInvalid;
                 res.Content = "缺少必填参数";
             }
             else

@@ -17,7 +17,7 @@ namespace ElimWeChatSign.Business
         {
             if (req.planId.IsNull() || req.userId.IsNull())
             {
-                res.Code = ResponseCode.RequireParamLack;
+                res.Code = ResponseCode.ParamValueInvalid;
                 res.Content = "缺少必填参数";
             }
             else
@@ -45,7 +45,7 @@ namespace ElimWeChatSign.Business
         {
             if (req.planId.IsNull() || req.signId.IsNull() || req.userId.IsNull())
             {
-                res.Code = ResponseCode.RequireParamLack;
+                res.Code = ResponseCode.ParamValueInvalid;
                 res.Content = "缺少必填参数";
             }
             else
@@ -71,7 +71,7 @@ namespace ElimWeChatSign.Business
         {
             if (req.userId.IsNull())
             {
-                res.Code = ResponseCode.RequireParamLack;
+                res.Code = ResponseCode.ParamValueInvalid;
                 res.Content = "缺少必填参数";
             }
             else
