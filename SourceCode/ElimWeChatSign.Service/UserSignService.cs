@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ElimWeChatSign.Core;
-using ElimWeChatSign.IService;
 using ElimWeChatSign.Model;
 using Titan;
 
@@ -13,7 +12,7 @@ namespace ElimWeChatSign.Service
     /// <summary>
     /// 签到明细服务
     /// </summary>
-    public class UserSignService : IUserSignService
+    public class UserSignService
     {
         /// <summary>
         /// 添加或修改

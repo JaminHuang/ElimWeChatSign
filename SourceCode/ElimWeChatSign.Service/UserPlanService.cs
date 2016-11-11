@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using ElimWeChatSign.Core;
-using ElimWeChatSign.IService;
 using ElimWeChatSign.Model;
 using Titan;
 
 namespace ElimWeChatSign.Service
 {
-    public class UserPlanService : IUserPlanService
+    public class UserPlanService
     {
         /// <summary>
         /// 添加或修改

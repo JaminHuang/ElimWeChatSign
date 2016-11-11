@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using ElimWeChatSign.Core;
-using ElimWeChatSign.IService;
 using ElimWeChatSign.Model;
+using ElimWeChatSign.Service;
 
 namespace ElimWeChatSign.Business
 {
@@ -11,41 +11,7 @@ namespace ElimWeChatSign.Business
 	/// </summary>
     public class RptSignBusiness
     {
-        private IRptSignService rptSignService;
-
-	    /// <summary>
-	    /// 添加报表
-	    /// </summary>
-	    /// <param name="userId">用户标识</param>
-	    /// <param name="planId">计划标识</param>
-	    /// <param name="bibleTask">读经完成度</param>
-	    /// <param name="bookTask">读书完成度</param>
-	    public ResRptSign Add(string userId, string planId, string bibleTask, string bookTask)
-	    {
-		    if (userId.IsNull() || planId.IsNull())
-			    throw new CustomerException(ResponseCode.ParamValueInvalid, "参数值无效");
-
-		    var model = new RptSign
-		    {
-			    UserId = userId,
-			    PlanId = planId,
-			    BibleTask = bibleTask,
-			    BookTask = bookTask
-		    };
-		    var rs = rptSignService.AddOrUpdate(model);
-
-			//输出对象
-			var resPrtSign = new ResRptSign
-			{
-				RptId = rs.RptId,
-				PlanId = rs.PlanId,
-				BibleTask = rs.BibleTask,
-				BookTask = rs.BookTask,
-				UpdateTime = rs.UpdateTime.ToString("yyyy-MM-dd HH:mm:ss")
-			};
-
-		    return resPrtSign;
-	    }
+        private RptSignService rptSignService = new RptSignService();
 
 	    /// <summary>
 	    /// 获取列表

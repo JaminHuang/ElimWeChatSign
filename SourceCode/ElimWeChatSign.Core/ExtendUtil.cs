@@ -111,6 +111,16 @@ namespace ElimWeChatSign.Core
 		}
 		#endregion
 
+		/// <summary>
+		/// MD5转换
+		/// </summary>
+		/// <param name="toEncrypt">字符串</param>
+		/// <returns></returns>
+		public static string ToMd5(this string toEncrypt)
+		{
+			var str = CryptographyUtil.Md5Hash(toEncrypt);
+			return str.Substring(0, 5) + str.Substring(str.Length - 6);
+		}
 
 		public static bool IsNull(this string str)
 		{

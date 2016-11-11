@@ -76,6 +76,10 @@ namespace ElimWeChatSign.Core
         /// 用户名或密码错误
         /// </summary>
         NameOrPwdError = 8305,
+		/// <summary>
+		/// 验证码错误
+		/// </summary>
+		VCodeError = 8306,
         /// <summary>
         /// 未找到资源
         /// </summary>

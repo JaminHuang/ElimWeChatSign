@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using ElimWeChatSign.Core;
-using ElimWeChatSign.IService;
 using ElimWeChatSign.Model;
+using ElimWeChatSign.Service;
 
 namespace ElimWeChatSign.Business
 {
@@ -12,7 +12,7 @@ namespace ElimWeChatSign.Business
     /// </summary>
     public class UserPlanBusiness
     {
-        private IUserPlanService userPlanService;
+        private UserPlanService userPlanService = new UserPlanService();
 
 	    /// <summary>
 	    /// 添加计划

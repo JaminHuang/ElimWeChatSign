@@ -30,25 +30,11 @@ namespace ElimWeChatSign.IService
 		UserInfo GetUserInfo(string userId);
 
 		/// <summary>
-		/// 用户登录
-		/// </summary>
-		/// <param name="mobile"></param>
-		/// <param name="pwd"></param>
-		/// <returns></returns>
-		UserInfo Login(string mobile, string pwd);
-
-		/// <summary>
 		/// 根据手机号判断是否存在
 		/// </summary>
 		/// <param name="mobile"></param>
 		/// <returns></returns>
 		bool Exist(string mobile);
-
-		/// <summary>
-		/// 获取用户列表
-		/// </summary>
-		/// <returns></returns>
-		List<UserInfo> List();
 
         /// <summary>
         /// 根据条件搜索列表
@@ -56,5 +42,20 @@ namespace ElimWeChatSign.IService
         /// <param name="userName"></param>
         /// <returns></returns>
 	    List<UserInfo> List(string userName);
+
+		/// <summary>
+		/// 用户登录
+		/// </summary>
+		/// <param name="mobile">手机号码</param>
+		/// <param name="pwd">用户密码</param>
+		/// <param name="os">操作系统</param>
+		/// <param name="osVersion">操作系统版本</param>
+		/// <param name="deviceId">App设备号</param>
+		/// <param name="appVersion">App版本号</param>
+		/// <param name="deviceToken">友盟授权Token</param>
+		/// <param name="loginIp">最后登录IP地址</param>
+		/// <returns></returns>
+		UserInfo Login(string mobile, string pwd, string os, string osVersion, string deviceId,
+			string appVersion, string deviceToken, string loginIp);
 	}
 }
