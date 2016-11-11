@@ -32,7 +32,7 @@ namespace ElimWeChatSign.API
 				var ex = (Exception)filterContext.Exception;
 				res.Code = ResponseCode.ServerInternalError;
 				res.Content = "";
-				res.ErrorMsg = "系统内部错误";
+				res.ErrorMsg = ex.Message;
 			}
 
 			//讲异常返回数据格式重新封装

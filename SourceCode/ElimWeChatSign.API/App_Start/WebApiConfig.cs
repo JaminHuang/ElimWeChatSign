@@ -19,11 +19,10 @@ namespace ElimWeChatSign.API
 			//自定义过滤器
 			config.Filters.Add(new MyExceptionFilterAttribute());
 
-            config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );
+			config.Routes.MapHttpRoute(
+				name: "DefaultApi",
+				routeTemplate: "api/{controller}/{action}/{id}",
+				defaults: new { id = RouteParameter.Optional });
 
 
 
