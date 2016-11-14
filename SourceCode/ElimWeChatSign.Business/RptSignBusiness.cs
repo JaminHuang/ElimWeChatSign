@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using ElimWeChatSign.Core;
 using ElimWeChatSign.Model;
 using ElimWeChatSign.Service;
 

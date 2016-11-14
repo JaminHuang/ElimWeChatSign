@@ -1,0 +1,134 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using ElimWeChatSign.Core;
+using ElimWeChatSign.Model;
+using ElimWeChatSign.Service;
+
+namespace ElimWeChatSign.Business
+{
+	/// <summary>
+	/// 聚会签到业务逻辑
+	/// </summary>
+	public class GatherBusiness
+	{
+		private GatherService gatherService = new GatherService();
+
+		/// <summary>
+		/// 签到
+		/// </summary>
+		/// <param name="userName"></param>
+		/// <param name="groupName"></param>
+		/// <param name="gatherType">聚会形式(0:主日聚会;1:学生小组聚会;2:毕业人生小组聚会;3:祷告会)</param>
+		/// <returns></returns>
+		public ResGether Sign(string userName, string groupName, int gatherType)
+		{
+			if (userName.IsNull() || gatherType < 0)
+				throw new CustomerException(ResponseCode.ParamValueInvalid, "参数值无效");
+
+			var model = new Gather
+			{
+				UserName = userName,
+				GroupName = groupName,
+				GatherType = gatherType,
+				SignTime = DateTime.Now
+			};
+
+			var gather = gatherService.AddOrUpdate(model);
+
+			//输出对象
+			var resGather = new ResGether
+			{
+				GatherId = gather.GatherId,
+				UserName = gather.UserName,
+				GroupName = gather.GroupName,
+				GatherType = gather.GatherType,
+				SignTime = gather.SignTime.ToString("yyyy-MM-dd HH:mm:ss")
+			};
+
+			return resGather;
+		}
+
+		/// <summary>
+		/// 获取签到列表[按天]
+		/// </summary>
+		/// <param name="userName">用户姓名</param>
+		/// <param name="groupName">小组名称</param>
+		/// <param name="gatherType">聚会形式</param>
+		/// <param name="date">报表日期</param>
+		/// <returns></returns>
+		public List<ResGether> ListByDate(string userName, string groupName, int gatherType, DateTime? date)
+		{
+			DateTime? startTime = null, endTime = null;
+			if (date != null)
+			{
+				startTime = Convert.ToDateTime(string.Format("{0}/{1}/{2} 00:00:00", date.Value.Year, date.Value.Month, date.Value.Day));
+				endTime = Convert.ToDateTime(string.Format("{0}/{1}/{2} 23:59:59", date.Value.Year, date.Value.Month, date.Value.Day));
+			}
+
+			var gList = gatherService.List(userName, groupName, gatherType, startTime, endTime);
+
+			//输出对象
+			var resDate = gList.Select(item => new ResGether
+			{
+				GatherId = item.GatherId,
+				UserName = item.UserName,
+				GroupName = item.GroupName,
+				GatherType = item.GatherType,
+				SignTime = item.SignTime.ToString("yyyy-MM-dd HH:mm:ss")
+			}).ToList();
+
+			return resDate;
+		}
+
+		/// <summary>
+		/// 获取签到列表[时间段]
+		/// </summary>
+		/// <param name="userName">用户姓名</param>
+		/// <param name="groupName">小组名称</param>
+		/// <param name="gatherType">聚会形式</param>
+		/// <param name="startTime">开始时间</param>
+		/// <param name="endTime">结束时间</param>
+		/// <returns></returns>
+		public List<ResGether> ListByDate(string userName, string groupName, int gatherType, DateTime? startTime, DateTime? endTime)
+		{
+			var gList = gatherService.List(userName, groupName, gatherType, startTime, endTime);
+
+			//输出对象
+			var resDate = gList.Select(item => new ResGether
+			{
+				GatherId = item.GatherId,
+				UserName = item.UserName,
+				GroupName = item.GroupName,
+				GatherType = item.GatherType,
+				SignTime = item.SignTime.ToString("yyyy-MM-dd HH:mm:ss")
+			}).ToList();
+
+			return resDate;
+		}
+
+		/// <summary>
+		/// 获取签到列表[时间段]
+		/// </summary>
+		/// <param name="userName">用户姓名</param>
+		/// <param name="groupName">小组名称</param>
+		/// <param name="gatherType">聚会形式</param>
+		/// <returns></returns>
+		public List<ResGether> List(string userName, string groupName, int gatherType)
+		{
+			var gList = gatherService.List(userName, groupName, gatherType, null, null);
+
+			//输出对象
+			var resDate = gList.Select(item => new ResGether
+			{
+				GatherId = item.GatherId,
+				UserName = item.UserName,
+				GroupName = item.GroupName,
+				GatherType = item.GatherType,
+				SignTime = item.SignTime.ToString("yyyy-MM-dd HH:mm:ss")
+			}).ToList();
+
+			return resDate;
+		}
+	}
+}

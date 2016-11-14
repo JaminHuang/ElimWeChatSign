@@ -1,8 +1,10 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2016/10/24 13:51:34                          */
+/* Created on:     2016/11/14 11:49:35                          */
 /*==============================================================*/
 
+
+drop table if exists Gather;
 
 drop table if exists RptSign;
 
@@ -11,6 +13,23 @@ drop table if exists UserInfo;
 drop table if exists UserPlan;
 
 drop table if exists UserSign;
+
+drop table if exists Verify;
+
+/*==============================================================*/
+/* Table: Gather                                                */
+/*==============================================================*/
+create table Gather
+(
+   GatherId             varchar(30) not null comment '签到标识,主键',
+   UserName             varchar(30) not null comment '姓名',
+   GroupName            varchar(30) not null comment '小组名称',
+   GatherType           int not null comment '聚会形式(0:主日聚会;1:学生小组聚会;2:毕业人生小组聚会;3:祷告会)',
+   SignTime             datetime not null comment '签到时间',
+   primary key (GatherId)
+);
+
+alter table Gather comment '聚会签到表';
 
 /*==============================================================*/
 /* Table: RptSign                                               */
@@ -37,8 +56,17 @@ create table UserInfo
    UserName             varchar(30) not null comment '用户名',
    Mobile               varchar(30) not null comment '手机号码',
    Password             varchar(50) not null comment '密码',
+   Avatar               varchar(200) not null comment '头像',
    Email                varchar(30) not null comment '邮箱',
+   Gender               int not null comment '性别(0:女;1:男)',
    UserType             int not null comment '用户类型(0:普通;1:同工;9999:管理员)',
+   Os                   varchar(50) not null comment '设备操作系统',
+   OsVersion            varchar(50) not null comment '设备系统版本',
+   DeviceID             varchar(200) not null comment '设备ID',
+   DeviceToken          varchar(100) not null comment '友盟推送的设备唯一标识',
+   LoginIp              varchar(50) not null comment '登录用户IP',
+   AppVersion           varchar(50) not null comment '使用app版本',
+   AuthToken            varchar(100) not null comment '授权Token',
    UpdateTime           datetime not null comment '最后修改时间',
    primary key (UserId)
 );
@@ -77,6 +105,21 @@ create table UserSign
 );
 
 alter table UserSign comment '用户签到表';
+
+/*==============================================================*/
+/* Table: Verify                                                */
+/*==============================================================*/
+create table Verify
+(
+   Mobile               varchar(20) not null comment '手机号码',
+   vCode                varchar(20) not null comment '验证码',
+   InsertTime           bigint not null comment '记录生成时间',
+   Expire               int not null comment '有效时长',
+   Type                 int not null comment '验证类型(0:手机验证;1:邮箱验证)',
+   primary key (Mobile)
+);
+
+alter table Verify comment '验证信息';
 
 alter table RptSign add constraint `FK_RptSign.UserInfo` foreign key (UserId)
       references UserInfo (UserId) on delete restrict on update restrict;

@@ -46,7 +46,7 @@
     <Compile Include="Entities.cs" />
     <Compile Include="EntityBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Req\ReqUserSign.cs" />
+    <Compile Include="Res\ResGether.cs" />
     <Compile Include="Res\ResRptSign.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -54,7 +54,9 @@
     <Compile Include="Res\ResUserPlan.cs" />
     <Compile Include="Res\ResUserSign.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Req\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
