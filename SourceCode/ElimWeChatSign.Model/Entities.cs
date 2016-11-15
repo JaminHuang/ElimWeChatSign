@@ -2115,6 +2115,27 @@
         [MySqlDbType(DbType.Int32)] 
         public int GatherType {  get; set; }
 
+ 
+        private string _IpAddress;
+
+        /// <summary>
+        /// IpAddress,IP地址
+        /// </summary>
+        [DataMember]
+        [Column( AllowNull = true , Length = 30)]  
+        [MySqlDbType(DbType.String)] 
+        public string IpAddress
+        {
+            get
+            {
+                return this._IpAddress ?? string.Empty;
+            }
+            set
+            {
+                this._IpAddress = value;
+            }
+        }
+
         /// <summary>
         /// SignTime,签到时间
         /// </summary>
@@ -2227,6 +2248,7 @@
             _UserName = new ExpressionBuilder("UserName");
             _GroupName = new ExpressionBuilder("GroupName");
             _GatherType = new ExpressionBuilder("GatherType");
+            _IpAddress = new ExpressionBuilder("IpAddress");
             _SignTime = new ExpressionBuilder("SignTime");
 
 
@@ -2254,6 +2276,11 @@
         /// GatherType,聚会形式(0:主日聚会;1:学生小组聚会;2:毕业人生小组聚会;3:祷告会)
         /// </summary>
         public static ExpressionBuilder GatherType { get{return _GatherType;}}
+        private static ExpressionBuilder _IpAddress;
+        /// <summary>
+        /// IpAddress,IP地址
+        /// </summary>
+        public static ExpressionBuilder IpAddress { get{return _IpAddress;}}
         private static ExpressionBuilder _SignTime;
         /// <summary>
         /// SignTime,签到时间
@@ -2277,6 +2304,7 @@
             this._UserName = new ExpressionBuilder( prefix + "UserName");
             this._GroupName = new ExpressionBuilder( prefix + "GroupName");
             this._GatherType = new ExpressionBuilder( prefix + "GatherType");
+            this._IpAddress = new ExpressionBuilder( prefix + "IpAddress");
             this._SignTime = new ExpressionBuilder( prefix + "SignTime");
         }
         
@@ -2304,6 +2332,11 @@
         /// GatherType,聚会形式(0:主日聚会;1:学生小组聚会;2:毕业人生小组聚会;3:祷告会)
         /// </summary>
         public ExpressionBuilder GatherType { get{return _GatherType;}}
+        private ExpressionBuilder _IpAddress;
+        /// <summary>
+        /// IpAddress,IP地址
+        /// </summary>
+        public ExpressionBuilder IpAddress { get{return _IpAddress;}}
         private ExpressionBuilder _SignTime;
         /// <summary>
         /// SignTime,签到时间

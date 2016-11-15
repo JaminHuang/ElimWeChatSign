@@ -80,6 +80,10 @@ namespace ElimWeChatSign.Core
 		/// 验证码错误
 		/// </summary>
 		VCodeError = 8306,
+		/// <summary>
+		/// IP地址错误
+		/// </summary>
+		IpAddressError = 8400,
         /// <summary>
         /// 未找到资源
         /// </summary>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 using ElimWeChatSign.Business;
 using ElimWeChatSign.Core;
@@ -25,8 +26,9 @@ namespace ElimWeChatSign.API.Controllers
 		public async Task<ResponseMessage> Sign()
 		{
 			var res = new ResponseMessage();
-			var dic = DeserializeParamServer(await this.Request.Content.ReadAsByteArrayAsync());
+			var dic = DeserializeParamServer(await Request.Content.ReadAsByteArrayAsync());
 			string userName = "", groupName = "";
+			string ipAddress = Extension.GetIp();//获取请求IP地址
 			int gatherType = -1;
 			if (dic != null && dic.ContainsKey("userName") && dic.ContainsKey("gatherType"))
 			{
@@ -34,12 +36,13 @@ namespace ElimWeChatSign.API.Controllers
 				gatherType = int.Parse(dic["gatherType"].ToString());
 
 				if (dic.ContainsKey("groupName")) { groupName = dic["groupName"].ToString(); }
+
 			}
 			else
 			{
 				throw new CustomerException(ResponseCode.MissParam, "缺少参数");
 			}
-			var result = gatherBusiness.Sign(userName, groupName, gatherType);
+			var result = gatherBusiness.Sign(userName, groupName, gatherType, ipAddress);
 
 			res.Content = result;
 			return res;
@@ -60,7 +63,7 @@ namespace ElimWeChatSign.API.Controllers
 		public async Task<ResponseMessage> ListByDate()
 		{
 			var res = new ResponseMessage();
-			var dic = DeserializeParamServer(await this.Request.Content.ReadAsByteArrayAsync());
+			var dic = DeserializeParamServer(await Request.Content.ReadAsByteArrayAsync());
 			string userName = "", groupName = "";
 			int gatherType = -1;
 			DateTime? date = null, startTime = null, endTime = null;
@@ -105,7 +108,7 @@ namespace ElimWeChatSign.API.Controllers
 		public async Task<ResponseMessage> List()
 		{
 			var res = new ResponseMessage();
-			var dic = DeserializeParamServer(await this.Request.Content.ReadAsByteArrayAsync());
+			var dic = DeserializeParamServer(await Request.Content.ReadAsByteArrayAsync());
 			string userName = "", groupName = "";
 			int gatherType = -1;
 			if (dic != null && dic.ContainsKey("userName") && dic.ContainsKey("gatherType"))

@@ -20,17 +20,24 @@ namespace ElimWeChatSign.Business
 		/// <param name="userName"></param>
 		/// <param name="groupName"></param>
 		/// <param name="gatherType">聚会形式(0:主日聚会;1:学生小组聚会;2:毕业人生小组聚会;3:祷告会)</param>
+		/// <param name="ipAddress">请求IP地址</param>
 		/// <returns></returns>
-		public ResGether Sign(string userName, string groupName, int gatherType)
+		public ResGether Sign(string userName, string groupName, int gatherType, string ipAddress)
 		{
 			if (userName.IsNull() || gatherType < 0)
 				throw new CustomerException(ResponseCode.ParamValueInvalid, "参数值无效");
+
+			//判断IP是否为规定地址
+			//var allowIp = AppConfiguration.GetKey("AllowIP");
+			//if (allowIp != ipAddress)
+			//	throw new CustomerException(ResponseCode.IpAddressError, "该IP不允许签到");
 
 			var model = new Gather
 			{
 				UserName = userName,
 				GroupName = groupName,
 				GatherType = gatherType,
+				IpAddress = ipAddress,
 				SignTime = DateTime.Now
 			};
 
@@ -43,6 +50,7 @@ namespace ElimWeChatSign.Business
 				UserName = gather.UserName,
 				GroupName = gather.GroupName,
 				GatherType = gather.GatherType,
+				IpAddress = gather.IpAddress,
 				SignTime = gather.SignTime.ToString("yyyy-MM-dd HH:mm:ss")
 			};
 
@@ -75,6 +83,7 @@ namespace ElimWeChatSign.Business
 				UserName = item.UserName,
 				GroupName = item.GroupName,
 				GatherType = item.GatherType,
+				IpAddress = item.IpAddress,
 				SignTime = item.SignTime.ToString("yyyy-MM-dd HH:mm:ss")
 			}).ToList();
 
@@ -101,6 +110,7 @@ namespace ElimWeChatSign.Business
 				UserName = item.UserName,
 				GroupName = item.GroupName,
 				GatherType = item.GatherType,
+				IpAddress = item.IpAddress,
 				SignTime = item.SignTime.ToString("yyyy-MM-dd HH:mm:ss")
 			}).ToList();
 
@@ -125,6 +135,7 @@ namespace ElimWeChatSign.Business
 				UserName = item.UserName,
 				GroupName = item.GroupName,
 				GatherType = item.GatherType,
+				IpAddress = item.IpAddress,
 				SignTime = item.SignTime.ToString("yyyy-MM-dd HH:mm:ss")
 			}).ToList();
 

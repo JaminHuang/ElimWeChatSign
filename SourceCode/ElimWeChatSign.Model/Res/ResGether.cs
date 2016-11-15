@@ -28,6 +28,10 @@ namespace ElimWeChatSign.Model
 		/// </summary>
 		public int GatherType { get; set; }
 		/// <summary>
+		/// IP地址
+		/// </summary>
+		public string IpAddress { get; set; }
+		/// <summary>
 		/// 签到时间
 		/// </summary>
 		public string SignTime { get; set; }
