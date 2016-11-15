@@ -128,5 +128,29 @@ namespace ElimWeChatSign.API.Controllers
 				throw new CustomerException(ResponseCode.MissParam, "缺少参数");
 			}
 		}
+
+        /// <summary>
+        /// 删除签到
+        /// </summary>
+        /// param:
+        /// gatherId:姓名
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<ResponseMessage> Delete()
+        {
+            var res = new ResponseMessage();
+            var dic = DeserializeParamServer(await Request.Content.ReadAsByteArrayAsync());
+            string gatherId = "";
+            if (dic != null && dic.ContainsKey("gatherId"))
+            {
+                gatherId = dic["gatherId"].ToString();
+
+                var result = gatherBusiness.Delete(gatherId);
+
+                res.Content = result;
+                return res;
+            }
+            throw new CustomerException(ResponseCode.MissParam, "缺少参数");
+        }
     }
 }

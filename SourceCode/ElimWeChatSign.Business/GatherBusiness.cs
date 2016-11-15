@@ -141,5 +141,20 @@ namespace ElimWeChatSign.Business
 
 			return resDate;
 		}
+
+        /// <summary>
+        /// 删除签到
+        /// </summary>
+        /// <param name="gatherId">签到标识</param>
+        /// <returns></returns>
+	    public string Delete(string gatherId)
+        {
+            if (gatherId.IsNull())
+                throw new CustomerException(ResponseCode.ParamValueInvalid, "参数值无效");
+
+            var rs = gatherService.Delete(gatherId);
+
+            return rs ? "" : "删除失败";
+        }
 	}
 }

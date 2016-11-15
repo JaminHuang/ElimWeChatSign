@@ -58,5 +58,16 @@ namespace ElimWeChatSign.Service
 			gList.Select(query);
 			return gList.Items;
 		}
+
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="gatherId"></param>
+        /// <returns></returns>
+	    public bool Delete(string gatherId)
+	    {
+	        var model = new Gather(gatherId);
+            return model.Delete() > 0;
+	    }
 	}
 }
