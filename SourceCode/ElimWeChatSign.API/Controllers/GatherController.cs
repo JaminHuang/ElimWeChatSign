@@ -166,7 +166,7 @@ namespace ElimWeChatSign.API.Controllers
 		{
 			var res = new ResponseMessage();
 			var dic = DeserializeParamServer(await Request.Content.ReadAsByteArrayAsync());
-			DateTime? date = null, startTime = null, endTime = null;
+			DateTime? startTime = DateTime.Today, endTime = DateTime.Today.AddDays(1);
 			if (dic != null && dic.ContainsKey("gatherType"))
 			{
 				var gatherType = int.Parse(dic["gatherType"].ToString());
