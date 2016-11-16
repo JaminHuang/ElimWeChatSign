@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.Http.Headers;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using CacheCow.Server;
 using CacheCow.Server.CacheControlPolicy;
 using CacheCow.Server.CacheRefreshPolicy;
@@ -15,6 +16,9 @@ namespace ElimWeChatSign.API
 
             // Web API 路由
             config.MapHttpAttributeRoutes();
+
+			//跨域处理
+			config.EnableCors(new EnableCorsAttribute("*", "*", "*"));
 
 			//自定义过滤器
 			config.Filters.Add(new MyExceptionFilterAttribute());
