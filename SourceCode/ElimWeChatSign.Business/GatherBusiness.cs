@@ -17,12 +17,13 @@ namespace ElimWeChatSign.Business
 		/// <summary>
 		/// 签到
 		/// </summary>
+		/// <param name="gatherId">签到标识[空为添加]</param>
 		/// <param name="userName"></param>
 		/// <param name="groupName"></param>
 		/// <param name="gatherType">聚会形式(0:主日聚会;1:学生小组聚会;2:毕业人生小组聚会;3:祷告会)</param>
 		/// <param name="ipAddress">请求IP地址</param>
 		/// <returns></returns>
-		public ResGether Sign(string userName, string groupName, int gatherType, string ipAddress)
+		public ResGether Sign(string gatherId, string userName, string groupName, int gatherType, string ipAddress)
 		{
 			if (userName.IsNull() || gatherType < 0)
 				throw new CustomerException(ResponseCode.ParamValueInvalid, "参数值无效");
@@ -34,6 +35,7 @@ namespace ElimWeChatSign.Business
 
 			var model = new Gather
 			{
+				GatherId = gatherId,
 				UserName = userName,
 				GroupName = groupName,
 				GatherType = gatherType,
