@@ -158,5 +158,19 @@ namespace ElimWeChatSign.Business
 
             return rs ? "" : "删除失败";
         }
+
+		/// <summary>
+		/// 获取签到人数
+		/// </summary>
+		/// <param name="type">聚会形式</param>
+		/// <param name="startTime">开始时间</param>
+		/// <param name="endTime">结束时间</param>
+		/// <returns></returns>
+		public int GetSignCount(int type, DateTime? startTime, DateTime? endTime)
+		{
+			var count = gatherService.GetSignCount(type, startTime, endTime);
+
+			return count;
+		}
 	}
 }

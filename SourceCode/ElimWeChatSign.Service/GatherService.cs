@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using ElimWeChatSign.Core;
 using ElimWeChatSign.Model;
 using Titan;
@@ -69,5 +70,28 @@ namespace ElimWeChatSign.Service
 	        var model = new Gather(gatherId);
             return model.Delete() > 0;
 	    }
+
+		/// <summary>
+		/// 获取指定时间的签到人数
+		/// </summary>
+		/// <param name="type">聚会形式</param>
+		/// <param name="startTime">开始时间</param>
+		/// <param name="endTime">结束时间</param>
+		/// <returns></returns>
+		public int GetSignCount(int type, DateTime? startTime, DateTime? endTime)
+		{
+			var query = new QueryExpression();
+			query.Selects.Add(GatherProperties.ALL);
+			if (type != -1)
+				query.Wheres.Add(GatherProperties.GatherType.Equal(type));
+			if (startTime != null)
+				query.Wheres.Add(GatherProperties.SignTime.GreaterThan(startTime));
+			if (endTime != null)
+				query.Wheres.Add(GatherProperties.SignTime.LessThan(endTime));
+
+			var gList = new Gathers();
+			gList.Select(query);
+			return gList.GroupBy(x=>x.UserName).Count();
+		}
 	}
 }
