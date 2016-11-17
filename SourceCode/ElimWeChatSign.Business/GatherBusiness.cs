@@ -144,20 +144,20 @@ namespace ElimWeChatSign.Business
 			return resDate;
 		}
 
-        /// <summary>
-        /// 删除签到
-        /// </summary>
-        /// <param name="gatherId">签到标识</param>
-        /// <returns></returns>
-	    public string Delete(string gatherId)
-        {
-            if (gatherId.IsNull())
-                throw new CustomerException(ResponseCode.ParamValueInvalid, "参数值无效");
+		/// <summary>
+		/// 删除签到
+		/// </summary>
+		/// <param name="gatherId">签到标识</param>
+		/// <returns></returns>
+		public string Delete(string gatherId)
+		{
+			if (gatherId.IsNull())
+				throw new CustomerException(ResponseCode.ParamValueInvalid, "参数值无效");
 
-            var rs = gatherService.Delete(gatherId);
+			var rs = gatherService.Delete(gatherId);
 
-            return rs ? "" : "删除失败";
-        }
+			return rs ? "" : "删除失败";
+		}
 
 		/// <summary>
 		/// 获取签到人数
@@ -171,6 +171,24 @@ namespace ElimWeChatSign.Business
 			var count = gatherService.GetSignCount(type, startTime, endTime);
 
 			return count;
+		}
+
+		/// <summary>
+		/// 获取签到人员名单
+		/// </summary>
+		/// <param name="type">聚会形式</param>
+		/// <param name="date">日期</param>
+		/// <returns></returns>
+		public List<string> GetSignNameList(int type, DateTime date)
+		{
+			DateTime? startTime = null, endTime = null;
+			startTime = Convert.ToDateTime(string.Format("{0}/{1}/{2} 00:00:00", date.Year, date.Month, date.Day));
+			endTime = Convert.ToDateTime(string.Format("{0}/{1}/{2} 23:59:59", date.Year, date.Month, date.Day));
+			var gList = gatherService.List("", "", type, startTime, endTime);
+
+			var nList = gList.GroupBy(x => x.UserName).Select(item => item.Key).ToList();
+
+			return nList;
 		}
 	}
 }

@@ -181,5 +181,31 @@ namespace ElimWeChatSign.API.Controllers
 			}
 			throw new CustomerException(ResponseCode.MissParam, "缺少参数");
 		}
+
+		/// <summary>
+		/// 获取签到人员名单
+		/// </summary>
+		/// param:
+		/// gatherType:聚会形式
+		/// date:日期
+		/// <returns></returns>
+		[HttpPost]
+		public async Task<ResponseMessage> GetSignNameList()
+		{
+			var res = new ResponseMessage();
+			var dic = DeserializeParamServer(await Request.Content.ReadAsByteArrayAsync());
+			DateTime date = DateTime.Today;
+			if (dic != null && dic.ContainsKey("gatherType") && dic.ContainsKey("date"))
+			{
+				var gatherType = int.Parse(dic["gatherType"].ToString());
+				date = DateTime.Parse(dic["date"].ToString());
+
+				var result = gatherBusiness.GetSignNameList(gatherType, date);
+
+				res.Content = result;
+				return res;
+			}
+			throw new CustomerException(ResponseCode.MissParam, "缺少参数");
+		}
     }
 }
