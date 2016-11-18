@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace ElimWeChatSign.Core
 {
+	/// <summary>
+	/// 加解密相关类
+	/// </summary>
 	public static class CryptographyUtil
 	{
 		#region AES加解密
@@ -42,6 +45,16 @@ namespace ElimWeChatSign.Core
 		public static string AESEncryServer(string toEncrypt)
 		{
 			return AESEncrypt(toEncrypt, ServerAuthTokenKey, ServerAuthTokenIv);
+		}
+
+		/// <summary>
+		/// 客户端加密
+		/// </summary>
+		/// <param name="toEncrypt"></param>
+		/// <returns></returns>
+		public static string AESEncryClient(string toEncrypt)
+		{
+			return AESEncrypt(toEncrypt, ClientAuthTokenKey, ClientAuthTokenIv);
 		}
 
 		/// <summary>
@@ -84,8 +97,10 @@ namespace ElimWeChatSign.Core
 
 		#endregion
 
+		#region MD5加密
+
 		/// <summary>
-		/// MD5加密
+		/// MD5加密[大写]
 		/// </summary>
 		/// <param name="toEncrypt"></param>
 		/// <returns></returns>
@@ -111,6 +126,11 @@ namespace ElimWeChatSign.Core
 			}
 		}
 
+		/// <summary>
+		/// MD5加密
+		/// </summary>
+		/// <param name="toEncrypt"></param>
+		/// <returns></returns>
 		public static string Md5NormalHash(string toEncrypt)
 		{
 			using (var md5Hash = MD5.Create())
@@ -133,5 +153,7 @@ namespace ElimWeChatSign.Core
 			}
 		}
 
+		#endregion
+		
 	}
 }

@@ -116,20 +116,20 @@ namespace ElimWeChatSign.API.Controllers
 		}
 
 		/// <summary>
-		/// 服务器单独调用
+		/// 外部单独调用
 		/// </summary>
 		/// <param name="bytes"></param>
 		/// <returns></returns>
 		protected Dictionary<string, object> DeserializeParamServer(byte[] bytes)
 		{
 			string jsonStr = System.Text.Encoding.UTF8.GetString(bytes);
-			//var reqDic = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonStr);
-			//if (reqDic == null || !reqDic.ContainsKey("body"))
-			//{
-			//	throw new CustomerException(ResponseCode.EncryptInvalid, "客户端加密字段获取失败");
-			//}
-			////Aes解密
-			//jsonStr = CryptographyUtil.AESDecryptServer(reqDic["body"]);
+			var reqDic = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonStr);
+			if (reqDic == null || !reqDic.ContainsKey("body"))
+			{
+				throw new CustomerException(ResponseCode.EncryptInvalid, "客户端加密字段获取失败");
+			}
+			//Aes解密
+			jsonStr = CryptographyUtil.AESDecryptClient(reqDic["body"]);
 			var dic = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, object>>(jsonStr);
 
 			return dic;
