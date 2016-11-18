@@ -296,3 +296,25 @@ ServerTime | 服务器时间 | Long | 必要 | 时间戳 |
     "ServerTime": 1479434316153
 }
 ```
+
+## 3 附录
+
+### 3.1 异常代码说明
+
+|代码标识|错误名称|详细意义|
+|:-:|:-|:-|
+|8200|Success|操作成功|
+|8300|UserNotExist|用户不存在|
+|8301|UserInvalid|用户无效|
+|8302|TokenInvalid|Token无效|
+|8303|UserNameError|姓名格式不正确|
+|8304|MobileError|手机号码格式不正确|
+|8305|NameOrPwdError|用户名或密码错误|
+|8306|VCodeError|验证码错误|
+|8400|IpAddressError|IP地址错误|
+|8400|NotFound|未找到资源|
+|8500|ServerInternalError|服务内部错误|
+|8600|MissParam|缺少参数|
+|8700|ParamValueInvalid|参数值无效|
+|8800|ResDataIsEmpty|接口返回对象为空|
+|8900|EncryptInvalid|AES加密数据获取失败|
