@@ -5,6 +5,9 @@ using ElimWeChatSign.Core;
 
 namespace ElimWeChatSign.API.Controllers
 {
+	/// <summary>
+	/// API基类
+	/// </summary>
     public class WarpperController : ApiController
     {
 		private UserInfoBusiness userInfoBusiness = new UserInfoBusiness();
