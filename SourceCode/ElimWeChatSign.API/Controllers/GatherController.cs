@@ -176,6 +176,7 @@ namespace ElimWeChatSign.API.Controllers
 
 				var result = gatherBusiness.GetSignCount(gatherType, startTime, endTime);
 
+
 				res.Content = result;
 				return res;
 			}
