@@ -28,7 +28,8 @@ namespace ElimWeChatSign.Test
 		public void AES_ClientEncry_Test()
 		{
 			var str = "123456";
-			var strCYy = CryptographyUtil.AESEncryClient(str);
+			var strCry = CryptographyUtil.AESEncryClient(str);
+            var strCryMD5 = strCry.ToMd5();
 		}
 
 		/// <summary>
@@ -38,7 +39,7 @@ namespace ElimWeChatSign.Test
 		public void AES_ClientDecrp_Test()
 		{
 			var str = "KKua+3FBmTAAxnXZWzBSWw==";
-			var strCYy = CryptographyUtil.AESDecryptClient(str);
+			var strCry = CryptographyUtil.AESDecryptClient(str);
 		}
 	}
 }

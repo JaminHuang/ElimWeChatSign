@@ -17,23 +17,23 @@ namespace ElimWeChatSign.API.Controllers
 		/// </summary>
 		public string AuthToken { get; set; }
 		/// <summary>
-		/// 操作系统
+		/// 操作系统,Web端为Server
 		/// </summary>
 		public string Os { get; set; }
 		/// <summary>
-		/// 操作系统版本
+		/// 操作系统版本,Web端为当前最新版本
 		/// </summary>
 		public string OsVersion { get; set; }
 		/// <summary>
-		/// App版本号
+		/// App版本号,Web端为当前最新版本
 		/// </summary>
 		public string AppVersion { get; set; }
 		/// <summary>
-		/// App设备号
+		/// App设备号,Web为空
 		/// </summary>
 		public string DeviceId { get; set; }
 		/// <summary>
-		/// 友盟授权Token
+		/// 友盟授权Token,Web端为空
 		/// </summary>
 		public string DeviceToken { get; set; }
 		/// <summary>
@@ -41,22 +41,22 @@ namespace ElimWeChatSign.API.Controllers
 		/// </summary>
 		public string LoginIp { get; set; }
 
-		/// <summary>
-		/// 除登录外其他接口访问
-		/// </summary>
-		/// <param name="bytes"></param>
-		/// <returns></returns>
-		protected Dictionary<string, object> DeserializeParam(byte[] bytes)
+        /// <summary>
+        /// 除登录外其他接口访问
+        /// </summary>
+        /// <param name="bytes"></param>
+        /// <returns></returns>
+        protected Dictionary<string, object> DeserializeParam(byte[] bytes)
 		{
 			string jsonStr = System.Text.Encoding.UTF8.GetString(bytes);
-			var reqDic = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonStr);
-			if (reqDic == null || !reqDic.ContainsKey("body"))
-			{
-				throw new CustomerException(ResponseCode.EncryptInvalid, "客户端加密字段获取失败");
-			}
-			//Aes解密
-			jsonStr = CryptographyUtil.AESDecryptClient(reqDic["body"]);
-			var dic = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, object>>(jsonStr);
+            var reqDic = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonStr);
+            if (reqDic == null || !reqDic.ContainsKey("body"))
+            {
+                throw new CustomerException(ResponseCode.EncryptInvalid, "客户端加密字段获取失败");
+            }
+            //Aes解密
+            jsonStr = CryptographyUtil.AESDecryptClient(reqDic["body"]);
+            var dic = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, object>>(jsonStr);
 
 			//判断接口必填参数是否都有:deviceID,os,osVersion,appVersion,authToken
 			if (dic != null
@@ -88,15 +88,14 @@ namespace ElimWeChatSign.API.Controllers
 		protected Dictionary<string, object> DeserializeParamForLogin(byte[] bytes)
 		{
 			string jsonStr = System.Text.Encoding.UTF8.GetString(bytes);
-			var reqDic = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonStr);
-			if (reqDic == null || !reqDic.ContainsKey("body"))
-			{
-				throw new CustomerException(ResponseCode.EncryptInvalid, "客户端加密字段获取失败");
-			}
-			//Aes解密
-			jsonStr = CryptographyUtil.AESDecryptClient(reqDic["body"]);
-
-			var dic = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, object>>(jsonStr);
+            var reqDic = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonStr);
+            if (reqDic == null || !reqDic.ContainsKey("body"))
+            {
+                throw new CustomerException(ResponseCode.EncryptInvalid, "客户端加密字段获取失败");
+            }
+            //Aes解密
+            jsonStr = CryptographyUtil.AESDecryptClient(reqDic["body"]);
+            var dic = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, object>>(jsonStr);
 
 			//判断接口必填参数是否都有:deviceID,os,osVersion,appVersion,loginIp
 			if (dic != null && dic.ContainsKey("deviceId")
@@ -126,14 +125,14 @@ namespace ElimWeChatSign.API.Controllers
 		protected Dictionary<string, object> DeserializeParamServer(byte[] bytes)
 		{
 			string jsonStr = System.Text.Encoding.UTF8.GetString(bytes);
-			var reqDic = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonStr);
-			if (reqDic == null || !reqDic.ContainsKey("body"))
-			{
-				throw new CustomerException(ResponseCode.EncryptInvalid, "客户端加密字段获取失败");
-			}
-			//Aes解密
-			jsonStr = CryptographyUtil.AESDecryptClient(reqDic["body"]);
-			var dic = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, object>>(jsonStr);
+            var reqDic = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonStr);
+            if (reqDic == null || !reqDic.ContainsKey("body"))
+            {
+                throw new CustomerException(ResponseCode.EncryptInvalid, "客户端加密字段获取失败");
+            }
+            //Aes解密
+            jsonStr = CryptographyUtil.AESDecryptClient(reqDic["body"]);
+            var dic = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, object>>(jsonStr);
 
 			return dic;
 		}

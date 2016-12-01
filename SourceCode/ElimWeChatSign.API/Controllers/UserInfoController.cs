@@ -22,7 +22,7 @@ namespace ElimWeChatSign.API.Controllers
 		public async Task<ResponseMessage> SendVCode()
 		{
 			var res = new ResponseMessage();
-			var dic = DeserializeParam(await this.Request.Content.ReadAsByteArrayAsync());
+			var dic = DeserializeParamServer(await this.Request.Content.ReadAsByteArrayAsync());
 			string mobile = "";
 			if (dic != null && dic.ContainsKey("mobile"))
 			{
@@ -182,15 +182,16 @@ namespace ElimWeChatSign.API.Controllers
 		public async Task<ResponseMessage> Update()
 		{
 			var res = new ResponseMessage();
-			var dic = DeserializeParamForLogin(await this.Request.Content.ReadAsByteArrayAsync());
-			string userId = "", userName = "", mobile = "", password = "", email = "";
-			int userType = 0;
-			if (dic != null && dic.ContainsKey("userId") && dic.ContainsKey("userName") && dic.ContainsKey("mobile") && dic.ContainsKey("password") && dic.ContainsKey("email"))
+			var dic = DeserializeParam(await this.Request.Content.ReadAsByteArrayAsync());
+			string userId = "", userName = "", avatar="", mobile = "", email = "";
+			int userType = -1;
+			if (dic != null && dic.ContainsKey("userId") && dic.ContainsKey("userName") && dic.ContainsKey("mobile")
+                && dic.ContainsKey("avatar") && dic.ContainsKey("email") && dic.ContainsKey("userType"))
 			{
 				userId = dic["userId"].ToString();
 				userName = dic["userName"].ToString();
+                avatar = dic["avatar"].ToString();
 				mobile = dic["mobile"].ToString();
-				password = dic["password"].ToString();
 				email = dic["email"].ToString();
 				userType = int.Parse(dic["userType"].ToString());
 			}
@@ -198,7 +199,7 @@ namespace ElimWeChatSign.API.Controllers
 			{
 				throw new CustomerException(ResponseCode.MissParam, "缺少参数");
 			}
-			var result = userInfoBusiness.Update(userId, userName, mobile, password, email, userType);
+			var result = userInfoBusiness.Update(userId, userName, avatar, mobile, email, userType);
 
 			res.Content = result;
 			return res;

@@ -51,7 +51,7 @@ namespace ElimWeChatSign.Service
 		/// <returns></returns>
 		public UserInfo GetUserInfo(string userId)
 		{
-			var userInfo = new UserInfo();
+			var userInfo = new UserInfo(userId);
 			return userInfo.Select() ? userInfo : null;
 		}
 
@@ -189,10 +189,11 @@ namespace ElimWeChatSign.Service
 
 			var userInfo = new UserInfo
 			{
-				UserName = "",
+                UserId = ExtendUtil.GuidToString(),
+				UserName = userName,
 				Password = password,
 				Avatar = "",
-				Gender = 0,
+				Gender = 1,
 				Mobile = mobile,
 				Os = os,
 				OsVersion = osVersion,

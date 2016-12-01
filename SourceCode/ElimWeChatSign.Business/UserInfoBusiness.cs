@@ -27,6 +27,8 @@ namespace ElimWeChatSign.Business
 			{
 				UserId = item.UserId,
 				Email = item.Email,
+                Avatar = item.Avatar,
+                Gender = item.Gender,
 				Mobile = item.Mobile,
 				UserName = item.UserName,
 				UserType = item.UserType,
@@ -37,30 +39,34 @@ namespace ElimWeChatSign.Business
 
 		}
 
-		/// <summary>
-		/// 修改用户信息
-		/// </summary>
-		/// <param name="userId">用户标识</param>
-		/// <param name="userName">用户姓名</param>
-		/// <param name="mobile">手机号码</param>
-		/// <param name="password">登录密码</param>
-		/// <param name="email">邮箱</param>
-		/// <param name="userType">类型</param>
-		public ResUserInfo Update(string userId, string userName, string mobile, string password, string email, int userType)
+        /// <summary>
+        /// 修改用户信息
+        /// </summary>
+        /// <param name="userId">用户标识</param>
+        /// <param name="userName">用户姓名</param>
+        /// <param name="avatar">头像</param>
+        /// <param name="mobile">手机号码</param>
+        /// <param name="email">邮箱</param>
+        /// <param name="userType">类型</param>
+        public ResUserInfo Update(string userId, string userName, string avatar, string mobile, string email, int userType)
 		{
 			if (userId.IsNull())
 				throw new CustomerException(ResponseCode.ParamValueInvalid, "参数无效");
 
-			var model = new UserInfo
-			{
-				UserId = userId,
-				UserName = userName,
-				Mobile = mobile,
-				Password = password,
-				Email = email,
-				UserType = userType
-			};
-			var userInfo = userInfoSercive.AddOrUpdate(model);
+            var model = userInfoSercive.GetUserInfo(userId);
+
+            if (!mobile.IsMobileNum())
+                throw new CustomerException(ResponseCode.MobileError, "手机号码格式不正确");
+            if (!userName.IsNameCn())
+                throw new CustomerException(ResponseCode.UserNameError, "姓名格式不正确");
+
+            model.UserName = userName;
+            model.Avatar = avatar;
+            model.Mobile = mobile;
+            model.Email = email;
+            model.UserType = userType;
+
+            var userInfo = userInfoSercive.AddOrUpdate(model);
 
 			//输出对象
 			var resUserInfo = new ResUserInfo
@@ -68,6 +74,7 @@ namespace ElimWeChatSign.Business
 				UserId = userInfo.UserId,
 				UserName = userInfo.UserName,
 				Email = userInfo.Email,
+                Avatar = userInfo.Avatar,
 				Mobile = userInfo.Mobile,
 				UserType = userInfo.UserType,
 				UpdateTime = userInfo.UpdateTime.ToString("yyyy-MM-dd HH:mm:ss")
@@ -93,6 +100,8 @@ namespace ElimWeChatSign.Business
 			{
 				UserId = userInfo.UserId,
 				UserName = userInfo.UserName,
+                Gender = userInfo.Gender,
+                Avatar = userInfo.Avatar,
 				Email = userInfo.Email,
 				Mobile = userInfo.Mobile,
 				UserType = userInfo.UserType,
@@ -153,7 +162,7 @@ namespace ElimWeChatSign.Business
 			var userInfo = userInfoSercive.Login(mobile, cryPwd, os, osVersion, deviceId, appVersion, deviceToken, loginIp);
 
 			//输出对象
-			var resUserInfo = new ResUserInfo
+			var resUserInfo = new ResProUserInfo
 			{
 				UserId = userInfo.UserId,
 				UserName = userInfo.UserName,
@@ -164,7 +173,10 @@ namespace ElimWeChatSign.Business
 				UserType = userInfo.UserType,
 				Os = userInfo.Os,
 				OsVersion = userInfo.OsVersion,
-				AppVersion = appVersion,
+				AppVersion = userInfo.AppVersion,
+                DeviceId = userInfo.DeviceID,
+                DeviceToken = userInfo.DeviceToken,
+                AuthToken = userInfo.AuthToken,
 				UpdateTime = userInfo.UpdateTime.ToString("yyyy-MM-dd HH:mm:ss")
 			};
 
@@ -200,7 +212,7 @@ namespace ElimWeChatSign.Business
 			if (isExist)
 				throw new CustomerException(ResponseCode.UserInvalid, "用户名已存在");
 
-			var cryPwd = password.ToMd5();//MD5加密
+			var cryPwd = password.ToMd5(); //AES后,再MD5
 			var res = userInfoSercive.Reg(mobile, cryPwd, userName, vCode, os, osVersion, deviceId, appVersion, deviceToken, loginIp);
 
 			return res;

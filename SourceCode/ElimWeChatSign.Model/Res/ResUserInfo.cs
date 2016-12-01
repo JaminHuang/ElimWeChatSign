@@ -34,28 +34,36 @@
 		/// </summary>
 		public int UserType { get; set; }
 		/// <summary>
-		/// 操作系统
-		/// </summary>
-		public string Os { get; set; }
-		/// <summary>
-		/// 操作系统版本
-		/// </summary>
-		public string OsVersion { get; set; }
-		/// <summary>
-		/// 设备UUID
-		/// </summary>
-		public string DeviceId { get; set; }
-		/// <summary>
-		/// app版本
-		/// </summary>
-		public string AppVersion { get; set; }
-		/// <summary>
-		/// 授权Token,用于登陆,退出
-		/// </summary>
-		public string AuthToken { get; set; }
-		/// <summary>
 		/// 最后修改时间
 		/// </summary>
 		public string UpdateTime { get; set; }
 	}
+
+    public class ResProUserInfo : ResUserInfo
+    {
+        /// <summary>
+		/// 操作系统
+		/// </summary>
+		public string Os { get; set; }
+        /// <summary>
+        /// 操作系统版本
+        /// </summary>
+        public string OsVersion { get; set; }
+        /// <summary>
+        /// 设备UUID
+        /// </summary>
+        public string DeviceId { get; set; }
+        /// <summary>
+        /// app版本
+        /// </summary>
+        public string AppVersion { get; set; }
+        /// <summary>
+		/// 设备UUID
+		/// </summary>
+		public string DeviceToken { get; set; }
+        /// <summary>
+        /// 授权Token,用于登陆,退出
+        /// </summary>
+        public string AuthToken { get; set; }
+    }
 }
