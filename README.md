@@ -36,6 +36,11 @@
 			- [3.1.7 获取用户信息](#317-获取用户信息)
 			- [3.1.8 获取用户列表](#318-获取用户列表)
 			- [3.1.9 退出登录](#319-退出登录)
+		- [3.2 用户计划](#32-用户计划)
+			- [3.2.1 添加计划](#321-添加计划)
+			- [3.2.2 修改计划](#322-修改计划)
+			- [3.2.3 获取指定用户的计划列表](#323-获取指定用户的计划列表)
+			- [3.2.4 获取指定姓名的计划列表](#324-获取指定姓名的计划列表)
 	- [4 附录](#4-附录)
 		- [4.1 异常代码说明](#41-异常代码说明)
 
@@ -52,6 +57,7 @@
 5 | V1.0 | 2016.11.14 | 添加聚会签到接口 | JaminHuang
 6 | V1.0 | 2016.11.15 | 添加跨域问题，加密 | JaminHuang
 7 | V1.0 | 2016.11.18 | 整理接口文档 | JaminHuang
+8 | V1.1 | 2016.12.01 | 添加移动端接口 | JaminHuang
 
 ## 1 前言
 
@@ -167,7 +173,7 @@ userName| 关键字 | String | 必填 | 模糊查询
 groupName | 小组 | String | 必填 | 空为获取全部小组
 gatherType | 聚会形式| Int | 必填 | 0:主日聚会;1:学生小组聚会;2:毕业人生小组聚会;3:祷告会
 date | 日期 | String | | 空为获取全部时间，`如果传date，则表示按日期传`
-startTime | 开始时间 | String | | 
+startTime | 开始时间 | String | |
 endTime | 结束时间 | String | |
 
 ```
@@ -811,6 +817,280 @@ ServerTime | 服务器时间 | Long | 必要 | 时间戳 |
     "Content": "",
     "ErrorMsg": "",
     "ServerTime": 1480576986339
+}
+```
+
+### 3.2 用户计划
+
+#### 3.2.1 添加计划
+
+**接口地址**: `URL/api/UserPlan/Add`
+
+**Input**
+
+字段名 | 字段 | 数据类型 | 是否必填 | 描述及要求
+--- | --- | --- | --- | ---
+userId | 用户标识 | String | 必填 |
+biblePlan | 读经计划 | String | 必填 |
+bookPlan | 读书计划 | String | 必填 |
+startDate | 开始时间 | String | 必填 |
+endDate | 结束时间 | String | 必填 |
+
+```
+{
+	"userId":"cbd411f866b32bcf",
+	"biblePlan":"plan1",
+	"bookPlan":"plan2",
+	"startDate":"2016-12-01",
+	"endDate":"2016-12-07"
+}
+```
+
+**Output**
+
+字段名 | 字段 | 数据类型 | 是否必要 | 描述及要求
+--- | --- | --- | --- | ---
+Code | 状态码 | Integer | 必要 | 状态码 |
+Content | 返回对象 | Object | 必要 |
+ErrorMsg | 错误信息 | String | 必要 |
+ServerTime | 服务器时间 | Long | 必要 | 时间戳 |
+
+**Content**
+
+字段名 | 字段 | 数据类型 | 描述 |
+--- | --- | --- | --- | ---
+PlanId | 计划标识 | String | 唯一标识，主键
+UserId | 用户标识 | String | 唯一标识
+BiblePlan | 读经计划 | String |
+BookPlan | 读书计划 | String | 头像地址
+StartDate | 开始时间 | String | yyyy-MM-dd HH:mm:ss
+EndDate | 结束时间 | String | yyyy-MM-dd HH:mm:ss
+UpdateTime | 最后修改时间 | String |
+
+**Success**
+
+```
+{
+    "Code": 8200,
+    "Content": {
+        "PlanId": "725c6680545c8dfd",
+        "UserId": "cbd411f866b32bcf",
+        "BiblePlan": "plan1",
+        "BookPlan": "plan2",
+        "StartDate": "2016-12-01 00:00:00",
+        "EndDate": "2016-12-07 00:00:00",
+        "UpdateTime": "2016-12-01 15:52:25"
+    },
+    "ErrorMsg": "",
+    "ServerTime": 1480578745333
+}
+```
+
+#### 3.2.2 修改计划
+
+**接口地址**: `URL/api/UserPlan/Update`
+
+**Input**
+
+字段名 | 字段 | 数据类型 | 是否必填 | 描述及要求
+--- | --- | --- | --- | ---
+planId | 计划标识 | String | 必填 |
+userId | 用户标识 | String | 必填 |
+biblePlan | 读经计划 | String | 必填 |
+bookPlan | 读书计划 | String | 必填 |
+startDate | 开始时间 | String |
+endDate | 结束时间 | String |
+
+```
+{
+	"planId":"725c6680545c8dfd",
+	"userId":"cbd411f866b32bcf",
+	"biblePlan":"biblePlan",
+	"bookPlan":"bookPlan",
+	"startDate":"2016-12-01",
+	"endDate":"2016-12-08"
+}
+```
+
+**Output**
+
+字段名 | 字段 | 数据类型 | 是否必要 | 描述及要求
+--- | --- | --- | --- | ---
+Code | 状态码 | Integer | 必要 | 状态码 |
+Content | 返回对象 | Object | 必要 |
+ErrorMsg | 错误信息 | String | 必要 |
+ServerTime | 服务器时间 | Long | 必要 | 时间戳 |
+
+**Content**
+
+字段名 | 字段 | 数据类型 | 描述 |
+--- | --- | --- | --- | ---
+PlanId | 计划标识 | String | 唯一标识，主键
+UserId | 用户标识 | String | 唯一标识
+BiblePlan | 读经计划 | String |
+BookPlan | 读书计划 | String | 头像地址
+StartDate | 开始时间 | String | yyyy-MM-dd HH:mm:ss
+EndDate | 结束时间 | String | yyyy-MM-dd HH:mm:ss
+UpdateTime | 最后修改时间 | String |
+
+**Success**
+
+```
+{
+    "Code": 8200,
+    "Content": {
+        "PlanId": "725c6680545c8dfd",
+        "UserId": "cbd411f866b32bcf",
+        "BiblePlan": "biblePlan",
+        "BookPlan": "bookPlan",
+        "StartDate": "2016-12-01 00:00:00",
+        "EndDate": "2016-12-08 00:00:00",
+        "UpdateTime": "2016-12-01 16:08:52"
+    },
+    "ErrorMsg": "",
+    "ServerTime": 1480579732739
+}
+```
+
+#### 3.2.3 获取指定用户的计划列表
+
+**接口地址**: `URL/api/UserPlan/Update`
+
+**Input**
+
+字段名 | 字段 | 数据类型 | 是否必填 | 描述及要求
+--- | --- | --- | --- | ---
+userId | 用户标识 | String | 必填 |
+startDate | 开始时间 | String | | 不传则默认无开始时间
+endDate | 结束时间 | String | | 不传则默认为当前时间
+
+```
+{
+	"userId":"cbd411f866b32bcf",
+	"startDate":"2016-12-01",
+	"endDate":"2016-12-09"
+}
+```
+
+**Output**
+
+字段名 | 字段 | 数据类型 | 是否必要 | 描述及要求
+--- | --- | --- | --- | ---
+Code | 状态码 | Integer | 必要 | 状态码 |
+Content | 返回对象 | Object | 必要 | 成功返回计划列表
+ErrorMsg | 错误信息 | String | 必要 |
+ServerTime | 服务器时间 | Long | 必要 | 时间戳 |
+
+**Content**
+
+字段名 | 字段 | 数据类型 | 描述 |
+--- | --- | --- | --- | ---
+PlanId | 计划标识 | String | 唯一标识，主键
+UserId | 用户标识 | String | 唯一标识
+BiblePlan | 读经计划 | String |
+BookPlan | 读书计划 | String | 头像地址
+StartDate | 开始时间 | String | yyyy-MM-dd HH:mm:ss
+EndDate | 结束时间 | String | yyyy-MM-dd HH:mm:ss
+UpdateTime | 最后修改时间 | String |
+
+**Success**
+
+```
+{
+    "Code": 8200,
+    "Content": [
+        {
+            "PlanId": "4a832cc39682163c",
+            "UserId": "cbd411f866b32bcf",
+            "BiblePlan": "plan1",
+            "BookPlan": "plan2",
+            "StartDate": "2016-12-01 00:00:00",
+            "EndDate": "2016-12-06 00:00:00",
+            "UpdateTime": "2016-12-01 16:10:42"
+        },
+        {
+            "PlanId": "725c6680545c8dfd",
+            "UserId": "cbd411f866b32bcf",
+            "BiblePlan": "biblePlan",
+            "BookPlan": "bookPlan",
+            "StartDate": "2016-12-01 00:00:00",
+            "EndDate": "2016-12-08 00:00:00",
+            "UpdateTime": "2016-12-01 16:08:53"
+        }
+    ],
+    "ErrorMsg": "",
+    "ServerTime": 1480579876881
+}
+```
+
+#### 3.2.4 获取指定姓名的计划列表
+
+**接口地址**: `URL/api/UserPlan/List`
+
+**Input**
+
+字段名 | 字段 | 数据类型 | 是否必填 | 描述及要求
+--- | --- | --- | --- | ---
+userName | 用户姓名 | String | 必填 |
+startDate | 开始时间 | String | | 不传则默认无开始时间
+endDate | 结束时间 | String | | 不传则默认为当前时间
+
+```
+{
+	"userName":"小明",
+	"startDate":"2016-12-01",
+	"endDate":"2016-12-09"
+}
+```
+
+**Output**
+
+字段名 | 字段 | 数据类型 | 是否必要 | 描述及要求
+--- | --- | --- | --- | ---
+Code | 状态码 | Integer | 必要 | 状态码 |
+Content | 返回对象 | Object | 必要 | 成功返回计划列表
+ErrorMsg | 错误信息 | String | 必要 |
+ServerTime | 服务器时间 | Long | 必要 | 时间戳 |
+
+**Content**
+
+字段名 | 字段 | 数据类型 | 描述 |
+--- | --- | --- | --- | ---
+PlanId | 计划标识 | String | 唯一标识，主键
+UserId | 用户标识 | String | 唯一标识
+BiblePlan | 读经计划 | String |
+BookPlan | 读书计划 | String | 头像地址
+StartDate | 开始时间 | String | yyyy-MM-dd HH:mm:ss
+EndDate | 结束时间 | String | yyyy-MM-dd HH:mm:ss
+UpdateTime | 最后修改时间 | String |
+
+**Success**
+
+```
+{
+    "Code": 8200,
+    "Content": [
+        {
+            "PlanId": "4a832cc39682163c",
+            "UserId": "cbd411f866b32bcf",
+            "BiblePlan": "plan1",
+            "BookPlan": "plan2",
+            "StartDate": "2016-12-01 00:00:00",
+            "EndDate": "2016-12-06 00:00:00",
+            "UpdateTime": "2016-12-01 16:10:42"
+        },
+        {
+            "PlanId": "725c6680545c8dfd",
+            "UserId": "cbd411f866b32bcf",
+            "BiblePlan": "biblePlan",
+            "BookPlan": "bookPlan",
+            "StartDate": "2016-12-01 00:00:00",
+            "EndDate": "2016-12-08 00:00:00",
+            "UpdateTime": "2016-12-01 16:08:53"
+        }
+    ],
+    "ErrorMsg": "",
+    "ServerTime": 1480579876881
 }
 ```
 

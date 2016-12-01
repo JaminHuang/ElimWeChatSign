@@ -60,7 +60,7 @@ namespace ElimWeChatSign.API.Controllers
 				bookPlan = dic["bookPlan"].ToString();
 
 				if (dic.ContainsKey("startDate")) { startDate = DateTime.Parse(dic["startDate"].ToString()); }
-				if (dic.ContainsKey("startDate")) { endDate = DateTime.Parse(dic["endDate"].ToString()); } 
+				if (dic.ContainsKey("endDate")) { endDate = DateTime.Parse(dic["endDate"].ToString()); } 
 			}
 			else
 			{
