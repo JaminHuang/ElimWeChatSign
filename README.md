@@ -1,6 +1,6 @@
 ﻿# 以琳·签到接口文档
 
-@(【以琳】网络事工)
+@(【备忘】个人计划)
 
 -------------------
  
@@ -41,6 +41,13 @@
 			- [3.2.2 修改计划](#322-修改计划)
 			- [3.2.3 获取指定用户的计划列表](#323-获取指定用户的计划列表)
 			- [3.2.4 获取指定姓名的计划列表](#324-获取指定姓名的计划列表)
+		- [3.3 用户签到](#33-用户签到)
+			- [3.3.1 签到打卡](#331-签到打卡)
+			- [3.3.2 修改签到](#332-修改签到)
+			- [3.3.3 查询指定用户的签到列表](#333-查询指定用户的签到列表)
+			- [3.3.4 查询签到信息](#334-查询签到信息)
+		- [3.4 签到报表](#34-签到报表)
+			- [3.4.1 查询指定人员的签到报表](#341-查询指定人员的签到报表)
 	- [4 附录](#4-附录)
 		- [4.1 异常代码说明](#41-异常代码说明)
 
@@ -130,7 +137,7 @@ UserName | 姓名 | String |
 GroupName | 小组 | String |
 GatherType | 聚会形式 | String | 0:主日聚会;1:学生小组聚会;2:毕业人生小组聚会;3:祷告会 |
 IpAddress | 签到IP | String |
-SignTime | 签到时间 | String |
+SignTime | 签到时间 | String | yyyy-MM-dd HH:mm:ss
 
 **Success**
 
@@ -317,7 +324,7 @@ ServerTime | 服务器时间 | Long | 必要 | 时间戳 |
 字段名 | 字段 | 数据类型 | 是否必填 | 描述及要求
 --- | --- | --- | --- | ---
 gatherType | 聚会形式 | String | 必填 | 0:主日聚会;1:学生小组聚会;2:毕业人生小组聚会;3:祷告会
-date| 日期 | String | 必填 | 
+date| 日期 | String | 必填 |  yyyy-MM-dd
 
 ```
 {
@@ -363,7 +370,7 @@ appVersion | App版本号 | String |
 deviceId | 设备号 | String |
 deviceToken | 友盟推送授权Token | String | 友盟推送授权Token，若无填空字符串
 loginIp | 设备IP | String |
-authToken | 登录授权Token | String | 除登录/注册等接口外，必填
+authToken | 登录授权Token | String | 除`登录/注册/重新密码`接口外，必填
 
 ### 3.1 用户相关
 
@@ -644,7 +651,7 @@ Avatar | 头像 | String | 头像地址
 Gender | 性别 | Int | 0:女;1:男; |
 Email | 邮箱 | String |
 UserType | 用户类型 | Int| 0:普通;1:同工;9999:管理员
-UpdateTime | 最后修改时间 | String |
+UpdateTime | 最后修改时间 | String | yyyy-MM-dd HH:mm:ss
 
 **Success**
 
@@ -702,7 +709,7 @@ Avatar | 头像 | String | 头像地址
 Gender | 性别 | Int | 0:女;1:男; |
 Email | 邮箱 | String |
 UserType | 用户类型 | Int| 0:普通;1:同工;9999:管理员
-UpdateTime | 最后修改时间 | String |
+UpdateTime | 最后修改时间 | String | yyyy-MM-dd HH:mm:ss
 
 **Success**
 
@@ -760,7 +767,7 @@ Avatar | 头像 | String | 头像地址
 Gender | 性别 | Int | 0:女;1:男; |
 Email | 邮箱 | String |
 UserType | 用户类型 | Int| 0:普通;1:同工;9999:管理员
-UpdateTime | 最后修改时间 | String |
+UpdateTime | 最后修改时间 | String | yyyy-MM-dd HH:mm:ss
 
 **Success**
 
@@ -865,7 +872,7 @@ BiblePlan | 读经计划 | String |
 BookPlan | 读书计划 | String | 头像地址
 StartDate | 开始时间 | String | yyyy-MM-dd HH:mm:ss
 EndDate | 结束时间 | String | yyyy-MM-dd HH:mm:ss
-UpdateTime | 最后修改时间 | String |
+UpdateTime | 最后修改时间 | String | yyyy-MM-dd HH:mm:ss
 
 **Success**
 
@@ -931,7 +938,7 @@ BiblePlan | 读经计划 | String |
 BookPlan | 读书计划 | String | 头像地址
 StartDate | 开始时间 | String | yyyy-MM-dd HH:mm:ss
 EndDate | 结束时间 | String | yyyy-MM-dd HH:mm:ss
-UpdateTime | 最后修改时间 | String |
+UpdateTime | 最后修改时间 | String | yyyy-MM-dd HH:mm:ss
 
 **Success**
 
@@ -991,7 +998,7 @@ BiblePlan | 读经计划 | String |
 BookPlan | 读书计划 | String | 头像地址
 StartDate | 开始时间 | String | yyyy-MM-dd HH:mm:ss
 EndDate | 结束时间 | String | yyyy-MM-dd HH:mm:ss
-UpdateTime | 最后修改时间 | String |
+UpdateTime | 最后修改时间 | String | yyyy-MM-dd HH:mm:ss
 
 **Success**
 
@@ -1062,7 +1069,7 @@ BiblePlan | 读经计划 | String |
 BookPlan | 读书计划 | String | 头像地址
 StartDate | 开始时间 | String | yyyy-MM-dd HH:mm:ss
 EndDate | 结束时间 | String | yyyy-MM-dd HH:mm:ss
-UpdateTime | 最后修改时间 | String |
+UpdateTime | 最后修改时间 | String | yyyy-MM-dd HH:mm:ss
 
 **Success**
 
@@ -1091,6 +1098,370 @@ UpdateTime | 最后修改时间 | String |
     ],
     "ErrorMsg": "",
     "ServerTime": 1480579876881
+}
+```
+
+### 3.3 用户签到
+
+#### 3.3.1 签到打卡
+
+**接口地址**: `URL/api/UserSign/Add`
+
+**Input**
+
+字段名 | 字段 | 数据类型 | 是否必填 | 描述及要求
+--- | --- | --- | --- | ---
+planId | 计划标识 | String | 必填 |
+userId | 用户标识 | String | 必填 |
+signType | 签到类型 | Int | 必填 | 1:读经;2:读书
+
+```
+{
+	"planId":"725c6680545c8dfd",
+	"userId":"cbd411f866b32bcf",
+	"signType":2
+}
+```
+
+**Output**
+
+字段名 | 字段 | 数据类型 | 是否必要 | 描述及要求
+--- | --- | --- | --- | ---
+Code | 状态码 | Integer | 必要 | 状态码 |
+Content | 返回对象 | Object | 必要 |
+ErrorMsg | 错误信息 | String | 必要 |
+ServerTime | 服务器时间 | Long | 必要 | 时间戳 |
+
+**Content**
+
+字段名 | 字段 | 数据类型 | 描述 |
+--- | --- | --- | --- | ---
+SignId | 签到标识 | String | 唯一标识，主键
+PlanId | 计划标识 | String | 唯一标识
+UserId | 用户标识 | String | 唯一标识
+SignType | 签到类型 | Int | 1:读经;2:读书
+SignDate | 签到时间 | String | yyyy-MM-dd HH:mm:ss
+UpdateTime | 最后修改时间 | String | yyyy-MM-dd HH:mm:ss
+
+**Success**
+
+```
+{
+    "Code": 8200,
+    "Content": {
+        "SignId": "f8b004e45ab48df5",
+        "UserId": "cbd411f866b32bcf",
+        "PlanId": "725c6680545c8dfd",
+        "SignType": 2,
+        "SignDate": "2016-12-02 10:49:09",
+        "UpdateTime": "2016-12-02 10:49:09"
+    },
+    "ErrorMsg": "",
+    "ServerTime": 1480646949000
+}
+```
+
+#### 3.3.2 修改签到
+
+**接口地址**: `URL/api/UserSign/Update`
+
+**Input**
+
+字段名 | 字段 | 数据类型 | 是否必填 | 描述及要求
+--- | --- | --- | --- | ---
+signId | 签到标识 | String | 必填 |
+planId | 计划标识 | String | 必填 |
+userId | 用户标识 | String | 必填 |
+signType | 签到类型 | Int | 必填 | 1:读经;2:读书
+
+```
+{
+	"signId":"f8b004e45ab48df5",
+	"planId":"725c6680545c8dfd",
+	"userId":"cbd411f866b32bcf",
+	"signType":2
+}
+```
+
+**Output**
+
+字段名 | 字段 | 数据类型 | 是否必要 | 描述及要求
+--- | --- | --- | --- | ---
+Code | 状态码 | Integer | 必要 | 状态码 |
+Content | 返回对象 | Object | 必要 |
+ErrorMsg | 错误信息 | String | 必要 |
+ServerTime | 服务器时间 | Long | 必要 | 时间戳 |
+
+**Content**
+
+字段名 | 字段 | 数据类型 | 描述 |
+--- | --- | --- | --- | ---
+SignId | 签到标识 | String | 唯一标识，主键
+PlanId | 计划标识 | String | 唯一标识
+UserId | 用户标识 | String | 唯一标识
+SignType | 签到类型 | Int | 1:读经;2:读书
+SignDate | 签到时间 | String | yyyy-MM-dd HH:mm:ss
+UpdateTime | 最后修改时间 | String | yyyy-MM-dd HH:mm:ss
+
+**Success**
+
+```
+{
+    "Code": 8200,
+    "Content": {
+        "SignId": "f8b004e45ab48df5",
+        "UserId": "cbd411f866b32bcf",
+        "PlanId": "725c6680545c8dfd",
+        "SignType": 2,
+        "SignDate": "2016-12-02 10:55:41",
+        "UpdateTime": "2016-12-02 10:55:41"
+    },
+    "ErrorMsg": "",
+    "ServerTime": 1480647341009
+}
+```
+
+#### 3.3.3 查询指定用户的签到列表
+
+**接口地址**: `URL/api/UserSign/ListByUserId`
+
+**Input**
+
+字段名 | 字段 | 数据类型 | 是否必填 | 描述及要求
+--- | --- | --- | --- | ---
+userId | 用户标识 | String | 必填 |
+planId | 计划标识 | String |  |
+
+```
+{
+	"userId":"cbd411f866b32bcf"
+}
+```
+
+**Output**
+
+字段名 | 字段 | 数据类型 | 是否必要 | 描述及要求
+--- | --- | --- | --- | ---
+Code | 状态码 | Integer | 必要 | 状态码 |
+Content | 返回对象 | Object | 必要 |
+ErrorMsg | 错误信息 | String | 必要 |
+ServerTime | 服务器时间 | Long | 必要 | 时间戳 |
+
+**Content**
+
+字段名 | 字段 | 数据类型 | 描述 |
+--- | --- | --- | --- | ---
+SignId | 签到标识 | String | 唯一标识，主键
+PlanId | 计划标识 | String | 唯一标识
+UserId | 用户标识 | String | 唯一标识
+SignType | 签到类型 | Int | 1:读经;2:读书
+SignDate | 签到时间 | String | yyyy-MM-dd HH:mm:ss
+UpdateTime | 最后修改时间 | String | yyyy-MM-dd HH:mm:ss
+
+**Success**
+
+```
+{
+    "Code": 8200,
+    "Content": [
+        {
+            "SignId": "ce8ca052b9328c05",
+            "UserId": "cbd411f866b32bcf",
+            "PlanId": "725c6680545c8dfd",
+            "SignType": 1,
+            "SignDate": "2016-12-02 10:43:14",
+            "UpdateTime": "2016-12-02 10:43:14"
+        },
+        {
+            "SignId": "f8b004e45ab48df5",
+            "UserId": "cbd411f866b32bcf",
+            "PlanId": "725c6680545c8dfd",
+            "SignType": 2,
+            "SignDate": "2016-12-02 10:55:41",
+            "UpdateTime": "2016-12-02 10:55:41"
+        }
+    ],
+    "ErrorMsg": "",
+    "ServerTime": 1480647595752
+}
+```
+
+#### 3.3.4 查询签到信息
+
+**接口地址**: `URL/api/UserSign/List`
+
+**Input**
+
+字段名 | 字段 | 数据类型 | 是否必填 | 描述及要求
+--- | --- | --- | --- | ---
+userName | 用户姓名 | String |  |
+startDate | 签到日期 | String |  | 查询某天的所有签到列表
+
+```
+{
+	"userName":"小明"
+}
+```
+
+**Output**
+
+字段名 | 字段 | 数据类型 | 是否必要 | 描述及要求
+--- | --- | --- | --- | ---
+Code | 状态码 | Integer | 必要 | 状态码 |
+Content | 返回对象 | Object | 必要 |
+ErrorMsg | 错误信息 | String | 必要 |
+ServerTime | 服务器时间 | Long | 必要 | 时间戳 |
+
+**Content**
+
+字段名 | 字段 | 数据类型 | 描述 |
+--- | --- | --- | --- | ---
+SignId | 签到标识 | String | 唯一标识，主键
+PlanId | 计划标识 | String | 唯一标识
+UserId | 用户标识 | String | 唯一标识
+SignType | 签到类型 | Int | 1:读经;2:读书
+SignDate | 签到时间 | String | yyyy-MM-dd HH:mm:ss
+UpdateTime | 最后修改时间 | String | yyyy-MM-dd HH:mm:ss
+
+**Success**
+
+```
+{
+    "Code": 8200,
+    "Content": [
+        {
+            "SignId": "ce8ca052b9328c05",
+            "UserId": "cbd411f866b32bcf",
+            "PlanId": "725c6680545c8dfd",
+            "SignType": 1,
+            "SignDate": "2016-12-02 10:43:14",
+            "UpdateTime": "2016-12-02 10:43:14"
+        },
+        {
+            "SignId": "f8b004e45ab48df5",
+            "UserId": "cbd411f866b32bcf",
+            "PlanId": "725c6680545c8dfd",
+            "SignType": 2,
+            "SignDate": "2016-12-02 10:55:41",
+            "UpdateTime": "2016-12-02 10:55:41"
+        }
+    ],
+    "ErrorMsg": "",
+    "ServerTime": 1480647842085
+}
+```
+
+#### 3.3.4 查询签到列表
+
+**接口地址**: `URL/api/UserSign/List`
+
+**Input**
+
+字段名 | 字段 | 数据类型 | 是否必填 | 描述及要求
+--- | --- | --- | --- | ---
+userName | 用户姓名 | String |  |
+startDate | 签到日期 | String |  | 查询某天的所有签到列表
+
+```
+{
+	"userName":"小明"
+}
+```
+
+**Output**
+
+字段名 | 字段 | 数据类型 | 是否必要 | 描述及要求
+--- | --- | --- | --- | ---
+Code | 状态码 | Integer | 必要 | 状态码 |
+Content | 返回对象 | Object | 必要 |
+ErrorMsg | 错误信息 | String | 必要 |
+ServerTime | 服务器时间 | Long | 必要 | 时间戳 |
+
+**Content**
+
+字段名 | 字段 | 数据类型 | 描述 |
+--- | --- | --- | --- | ---
+SignId | 签到标识 | String | 唯一标识，主键
+PlanId | 计划标识 | String | 唯一标识
+UserId | 用户标识 | String | 唯一标识
+SignType | 签到类型 | Int | 1:读经;2:读书
+SignDate | 签到时间 | String | yyyy-MM-dd HH:mm:ss
+UpdateTime | 最后修改时间 | String | yyyy-MM-dd HH:mm:ss
+
+**Success**
+
+```
+{
+    "Code": 8200,
+    "Content": [
+        {
+            "SignId": "ce8ca052b9328c05",
+            "UserId": "cbd411f866b32bcf",
+            "PlanId": "725c6680545c8dfd",
+            "SignType": 1,
+            "SignDate": "2016-12-02 10:43:14",
+            "UpdateTime": "2016-12-02 10:43:14"
+        },
+        {
+            "SignId": "f8b004e45ab48df5",
+            "UserId": "cbd411f866b32bcf",
+            "PlanId": "725c6680545c8dfd",
+            "SignType": 2,
+            "SignDate": "2016-12-02 10:55:41",
+            "UpdateTime": "2016-12-02 10:55:41"
+        }
+    ],
+    "ErrorMsg": "",
+    "ServerTime": 1480647842085
+}
+```
+
+### 3.4 签到报表
+
+#### 3.4.1 查询指定人员的签到报表
+
+**接口地址**: `URL/api/RptSign/List`
+
+**Input**
+
+字段名 | 字段 | 数据类型 | 是否必填 | 描述及要求
+--- | --- | --- | --- | ---
+userName | 用户姓名 | String | 必填 |
+
+```
+{
+	"userName":"小明"
+}
+```
+
+**Output**
+
+字段名 | 字段 | 数据类型 | 是否必要 | 描述及要求
+--- | --- | --- | --- | ---
+Code | 状态码 | Integer | 必要 | 状态码 |
+Content | 返回对象 | Object | 必要 |
+ErrorMsg | 错误信息 | String | 必要 |
+ServerTime | 服务器时间 | Long | 必要 | 时间戳 |
+
+**Content**
+
+字段名 | 字段 | 数据类型 | 描述 |
+--- | --- | --- | --- | ---
+RptId | 报表标识 | String | 唯一标识，主键
+PlanId | 计划标识 | String | 唯一标识
+UserId | 用户标识 | String | 唯一标识
+BibleTask | 读经完成度 | String |
+BookTask | 读书完成度 | String |
+UpdateTime | 最后修改时间 | String | yyyy-MM-dd HH:mm:ss
+
+**Success**
+
+```
+{
+    "Code": 8200,
+    "Content": [],
+    "ErrorMsg": "",
+    "ServerTime": 1480649480274
 }
 ```
 
