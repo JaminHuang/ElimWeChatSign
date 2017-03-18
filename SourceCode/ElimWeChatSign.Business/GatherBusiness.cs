@@ -144,12 +144,47 @@ namespace ElimWeChatSign.Business
 			return resDate;
 		}
 
-		/// <summary>
-		/// 删除签到
+        /// <summary>
+		/// 统计用户签到列表
 		/// </summary>
-		/// <param name="gatherId">签到标识</param>
+		/// <param name="userName">用户姓名</param>
+		/// <param name="groupName">小组名称</param>
+		/// <param name="gatherType">聚会形式</param>
+		/// <param name="startTime">开始时间</param>
+		/// <param name="endTime">结束时间</param>
 		/// <returns></returns>
-		public string Delete(string gatherId)
+		public List<ResGetherUser> GatherUserList(string userName, string groupName, int gatherType, DateTime? startTime = null, DateTime? endTime = null)
+        {
+            var gList = gatherService.List(userName, groupName, gatherType, startTime, endTime);
+
+            var allCount = gList.Count;
+
+            var resDate = new List<ResGetherUser>();
+
+            foreach (var item in gList.GroupBy(x=> new {x.UserName, x.GroupName, x.GatherType }))
+            {
+                var model = new ResGetherUser
+                {
+                    UserId = ExtendUtil.GuidToString(),
+                    UserName = item.Key.UserName,
+                    GroupName = item.Key.GroupName,
+                    GatherType = item.Key.GatherType,
+                    Count = item.Count(),
+                    Rate = (Convert.ToDouble(item.Count()) / Convert.ToDouble(allCount)).ToString("p")
+                };
+
+                resDate.Add(model);
+            }
+
+            return resDate;
+        }
+
+        /// <summary>
+        /// 删除签到
+        /// </summary>
+        /// <param name="gatherId">签到标识</param>
+        /// <returns></returns>
+        public string Delete(string gatherId)
 		{
 			if (gatherId.IsNull())
 				throw new CustomerException(ResponseCode.ParamValueInvalid, "参数值无效");
