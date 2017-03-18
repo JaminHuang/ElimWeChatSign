@@ -55,6 +55,8 @@ namespace ElimWeChatSign.Service
 			if (endTime != null)
 				query.Wheres.Add(GatherProperties.SignTime.LessThan(endTime));
 
+            query.OrderBys.Add(GatherProperties.SignTime.Desc);
+
 			var gList = new Gathers();
 			gList.Select(query);
 			return gList.Items;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using ElimWeChatSign.Core;
 using ElimWeChatSign.Model;
 using ElimWeChatSign.Service;
@@ -79,7 +80,7 @@ namespace ElimWeChatSign.Business
 			var gList = gatherService.List(userName, groupName, gatherType, startTime, endTime);
 
 			//输出对象
-			var resDate = gList.Select(item => new ResGether
+			var resDate = gList.Where(x => x.SignTime.DayOfWeek == DayOfWeek.Sunday).Select(item => new ResGether
 			{
 				GatherId = item.GatherId,
 				UserName = item.UserName,
@@ -106,7 +107,7 @@ namespace ElimWeChatSign.Business
 			var gList = gatherService.List(userName, groupName, gatherType, startTime, endTime);
 
 			//输出对象
-			var resDate = gList.Select(item => new ResGether
+			var resDate = gList.Where(x=>x.SignTime.DayOfWeek == DayOfWeek.Sunday).Select(item => new ResGether
 			{
 				GatherId = item.GatherId,
 				UserName = item.UserName,
@@ -131,7 +132,7 @@ namespace ElimWeChatSign.Business
 			var gList = gatherService.List(userName, groupName, gatherType, null, null);
 
 			//输出对象
-			var resDate = gList.Select(item => new ResGether
+			var resDate = gList.Where(x => x.SignTime.DayOfWeek == DayOfWeek.Sunday).Select(item => new ResGether
 			{
 				GatherId = item.GatherId,
 				UserName = item.UserName,
@@ -157,23 +158,35 @@ namespace ElimWeChatSign.Business
         {
             var gList = gatherService.List(userName, groupName, gatherType, startTime, endTime);
 
-            var allCount = gList.Count;
+            //计算时间段内所有聚会次数
+            //if(startTime == null) { startTime = DateTime.Parse("2016/11/20"); }
+            //if(endTime == null) { endTime = DateTime.Now.Date; }
+
+            //var allCount = TotalWeeks(startTime.Value, endTime.Value, DayOfWeek.Sunday);
+            var allCount = gList.Where(x=>x.SignTime.DayOfWeek == DayOfWeek.Sunday).GroupBy(y=>y.SignTime.Date).Count();
 
             var resDate = new List<ResGetherUser>();
 
             foreach (var item in gList.GroupBy(x=> new {x.UserName, x.GroupName, x.GatherType }))
             {
+                var count = item.ToList().FindAll(a=>a.SignTime.DayOfWeek == DayOfWeek.Sunday).GroupBy(x=>x.SignTime.Date).Count(); //某时间段内总签到次数
+
                 var model = new ResGetherUser
                 {
                     UserId = ExtendUtil.GuidToString(),
                     UserName = item.Key.UserName,
                     GroupName = item.Key.GroupName,
                     GatherType = item.Key.GatherType,
-                    Count = item.Count(),
-                    Rate = (Convert.ToDouble(item.Count()) / Convert.ToDouble(allCount)).ToString("p")
+                    Count = count,
+                    AllCount = allCount,
+                    SignRate = (Convert.ToDouble(count) / Convert.ToDouble(allCount)).ToString("p")
                 };
 
-                resDate.Add(model);
+                if (count != 0)
+                {
+                    resDate.Add(model);
+                }
+                
             }
 
             return resDate;
@@ -225,5 +238,26 @@ namespace ElimWeChatSign.Business
 
 			return nList;
 		}
-	}
+
+        #region 辅助方法
+
+        ///<summary> 
+        /// 统计一段时间内有多少个星期几 
+        ///</summary> 
+        ///<param   name= "AStart "> 开始日期 </param> 
+        ///<param   name= "AEnd "> 结束日期 </param> 
+        ///<param   name= "AWeek "> 星期几 </param> 
+        ///<returns> 返回个数 </returns> 
+        private int TotalWeeks(DateTime AStart, DateTime AEnd, DayOfWeek AWeek)
+        {
+            TimeSpan vTimeSpan = new TimeSpan(AEnd.Ticks - AStart.Ticks);
+            int Result = (int)vTimeSpan.TotalDays / 7;
+            for (int i = 0; i <= vTimeSpan.TotalDays % 7; i++)
+                if (AStart.AddDays(i).DayOfWeek == AWeek)
+                    return Result + 1;
+            return Result;
+        }
+
+        #endregion
+    }
 }

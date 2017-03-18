@@ -63,8 +63,12 @@ namespace ElimWeChatSign.Model
         /// </summary>
         public int Count { get; set; }
         /// <summary>
+        /// 签到总次数
+        /// </summary>
+        public int AllCount { get; set; }
+        /// <summary>
         /// 出勤率
         /// </summary>
-        public string Rate { get; set; }
+        public string SignRate { get; set; }
     }
 }
