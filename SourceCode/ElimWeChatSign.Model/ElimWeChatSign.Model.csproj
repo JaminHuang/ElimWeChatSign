@@ -47,12 +47,6 @@
     <Compile Include="EntityBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Res\ResGether.cs" />
-    <Compile Include="Res\ResRptSign.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Res\ResUserInfo.cs" />
-    <Compile Include="Res\ResUserPlan.cs" />
-    <Compile Include="Res\ResUserSign.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Req\" />

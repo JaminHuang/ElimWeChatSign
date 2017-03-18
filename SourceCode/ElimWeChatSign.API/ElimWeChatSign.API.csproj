@@ -139,14 +139,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\GatherController.cs" />
-    <Compile Include="Controllers\RptSignController.cs" />
-    <Compile Include="Controllers\UserInfoController.cs" />
-    <Compile Include="Controllers\UserPlanController.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Controllers\UserSignController.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Controllers\WarpperController.cs" />
     <Compile Include="Filter\MyExceptionFilterAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -155,7 +147,9 @@
     <Compile Include="Models\Extension.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\LogClass.cs" />
     <Compile Include="Models\LoggerHelper.cs" />
+    <Compile Include="Models\LogReq.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

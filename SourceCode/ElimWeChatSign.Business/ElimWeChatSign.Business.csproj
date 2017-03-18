@@ -44,10 +44,6 @@
   <ItemGroup>
     <Compile Include="GatherBusiness.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RptSignBusiness.cs" />
-    <Compile Include="UserInfoBusiness.cs" />
-    <Compile Include="UserPlanBusiness.cs" />
-    <Compile Include="UserSignBusiness.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ElimWeChatSign.Core\ElimWeChatSign.Core.csproj">
