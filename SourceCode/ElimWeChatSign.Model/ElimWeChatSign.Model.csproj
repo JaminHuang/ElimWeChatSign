@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
@@ -38,18 +39,20 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="Titan">
-      <HintPath>..\..\Files\Refrences\Titan.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities.cs" />
-    <Compile Include="EntityBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Res\ResGether.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Req\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Titan\Titan.csproj">
+      <Project>{0bc8d532-2680-4634-add1-46392736e193}</Project>
+      <Name>Titan</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

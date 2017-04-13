@@ -37,11 +37,9 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="Titan">
-      <HintPath>..\..\Files\Refrences\Titan.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseService.cs" />
     <Compile Include="GatherService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -53,6 +51,10 @@
     <ProjectReference Include="..\ElimWeChatSign.Model\ElimWeChatSign.Model.csproj">
       <Project>{4cbb15c6-4b7e-43f6-944e-b6809edf3017}</Project>
       <Name>ElimWeChatSign.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Titan\Titan.csproj">
+      <Project>{0bc8d532-2680-4634-add1-46392736e193}</Project>
+      <Name>Titan</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

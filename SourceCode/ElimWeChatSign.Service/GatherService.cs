@@ -10,7 +10,7 @@ namespace ElimWeChatSign.Service
 	/// <summary>
 	/// 聚会签到服务
 	/// </summary>
-	public class GatherService
+	public class GatherService : BaseService
 	{
 		/// <summary>
 		/// 添加或修改
@@ -22,11 +22,11 @@ namespace ElimWeChatSign.Service
 			if (model.GatherId.IsNull())
 			{
 				model.GatherId = ExtendUtil.GuidToString();
-				model.Insert();
+			    Session.Insert(model);
 			}
 			else
 			{
-				model.Update();
+				Session.Update(model);
 			}
 			return model;
 		}
@@ -43,23 +43,24 @@ namespace ElimWeChatSign.Service
 		public List<Gather> List(string userName, string groupName, int type = -1, DateTime? startTime = null, DateTime? endTime = null)
 		{
 			var query = new QueryExpression();
-			query.Selects.Add(GatherProperties.ALL);
+            query.EntityType = typeof(Gather);
+			query.Selects.Add(Gather_.ALL);
 			if (!userName.IsNull())
-				query.Wheres.Add(GatherProperties.UserName.Like(userName));
+				query.Wheres.Add(Gather_.UserName.TLike(userName));
 			if (!groupName.IsNull())
-				query.Wheres.Add(GatherProperties.GroupName.Equal(groupName));
+				query.Wheres.Add(Gather_.GroupName.TEqual(groupName));
 			if (type != -1)
-				query.Wheres.Add(GatherProperties.GatherType.Equal(type));
+				query.Wheres.Add(Gather_.GatherType.TEqual(type));
 			if (startTime != null)
-				query.Wheres.Add(GatherProperties.SignTime.GreaterThan(startTime));
+				query.Wheres.Add(Gather_.SignTime.TGreaterThan(startTime));
 			if (endTime != null)
-				query.Wheres.Add(GatherProperties.SignTime.LessThan(endTime));
+				query.Wheres.Add(Gather_.SignTime.TLessThan(endTime));
 
-            query.OrderBys.Add(GatherProperties.SignTime.Desc);
-
-			var gList = new Gathers();
-			gList.Select(query);
-			return gList.Items;
+            query.OrderBys.Add(Gather_.SignTime.Desc);
+            
+			var gList = new List<Gather>();
+		    Session.SelectCollection(gList, query);
+			return gList;
 		}
 
         /// <summary>
@@ -69,8 +70,8 @@ namespace ElimWeChatSign.Service
         /// <returns></returns>
 	    public bool Delete(string gatherId)
 	    {
-	        var model = new Gather(gatherId);
-            return model.Delete() > 0;
+	        var model = new Gather { GatherId = gatherId };
+            return Session.Delete(model) > 0;
 	    }
 
 		/// <summary>
@@ -83,16 +84,17 @@ namespace ElimWeChatSign.Service
 		public int GetSignCount(int type, DateTime? startTime, DateTime? endTime)
 		{
 			var query = new QueryExpression();
-			query.Selects.Add(GatherProperties.ALL);
+            query.EntityType = typeof(Gather);
+            query.Selects.Add(Gather_.ALL);
 			if (type != -1)
-				query.Wheres.Add(GatherProperties.GatherType.Equal(type));
+				query.Wheres.Add(Gather_.GatherType.TEqual(type));
 			if (startTime != null)
-				query.Wheres.Add(GatherProperties.SignTime.GreaterThan(startTime));
+				query.Wheres.Add(Gather_.SignTime.TGreaterThan(startTime));
 			if (endTime != null)
-				query.Wheres.Add(GatherProperties.SignTime.LessThan(endTime));
+				query.Wheres.Add(Gather_.SignTime.TLessThan(endTime));
 
-			var gList = new Gathers();
-			gList.Select(query);
+			var gList = new List<Gather>();
+		    Session.SelectCollection(gList, query);
 			return gList.GroupBy(x=>x.UserName).Count();
 		}
 	}
