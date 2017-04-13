@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System;
 using ElimWeChatSign.Core;
 using Titan;
 using Titan.MySql;
@@ -20,7 +15,7 @@ namespace ElimWeChatSign.Service
         /// <summary>
         /// 数据库连接字符串
         /// </summary>
-        private static string ConnectionString = AppConfiguration.GetKey("ElimSignDB");
+        private static string ConnectionString = CryptographyUtil.AESDecryptServer(AppConfiguration.GetKey("ElimSign"));
         /// <summary>
         /// 数据库类型
         /// </summary>
