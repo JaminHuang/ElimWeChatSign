@@ -244,5 +244,69 @@ namespace ElimWeChatSign.API.Controllers
             }
             throw new CustomerException(ResponseCode.MissParam, "缺少参数");
         }
+
+        /// <summary>
+		/// 获取某时间段小组聚会总人数
+		/// </summary>
+		/// param:
+		/// gatherType:聚会形式
+		/// date:时间
+		/// startTime:开始时间
+		/// endTIme:结束时间
+		/// <returns></returns>
+		[HttpPost]
+        public async Task<ResponseMessage> GetGatherGroupList()
+        {
+            var res = new ResponseMessage();
+            var dic = DeserializeParamServer(await Request.Content.ReadAsByteArrayAsync());
+            string groupName = "";
+            int gatherType = -1;
+            DateTime? date = null, startTime = null, endTime = null;
+            if (dic != null && dic.ContainsKey("gatherType"))
+            {
+                gatherType = int.Parse(dic["gatherType"].ToString());
+
+                if (dic.ContainsKey("startTime")) { startTime = DateTime.Parse(dic["startTime"].ToString()); }
+                if (dic.ContainsKey("endTime")) { endTime = DateTime.Parse(dic["endTime"].ToString()); }
+
+                var result = gatherBusiness.GetGatherGroupList(gatherType, startTime, endTime);
+
+                res.Content = result;
+                return res;
+            }
+            throw new CustomerException(ResponseCode.MissParam, "缺少参数");
+        }
+
+        /// <summary>
+		/// 获取聚会小组签到报表
+		/// </summary>
+		/// param:
+		/// gatherType:聚会形式
+		/// date:时间
+		/// startTime:开始时间
+		/// endTIme:结束时间
+		/// <returns></returns>
+		[HttpPost]
+        public async Task<ResponseMessage> GetRptGather()
+        {
+            var res = new ResponseMessage();
+            var dic = DeserializeParamServer(await Request.Content.ReadAsByteArrayAsync());
+            string groupName = "";
+            int gatherType = -1;
+            DateTime? date = null, startTime = null, endTime = null;
+            if (dic != null && dic.ContainsKey("gatherType"))
+            {
+                gatherType = int.Parse(dic["gatherType"].ToString());
+
+                if (dic.ContainsKey("startTime")) { startTime = DateTime.Parse(dic["startTime"].ToString()); }
+                if (dic.ContainsKey("endTime")) { endTime = DateTime.Parse(dic["endTime"].ToString()); }
+
+                var result = gatherBusiness.GetRptGather(gatherType, startTime, endTime);
+
+                res.Content = result;
+                return res;
+            }
+            throw new CustomerException(ResponseCode.MissParam, "缺少参数");
+        }
     }
 }

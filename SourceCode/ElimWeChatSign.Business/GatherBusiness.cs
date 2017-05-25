@@ -239,6 +239,71 @@ namespace ElimWeChatSign.Business
 			return nList;
 		}
 
+        /// <summary>
+        /// 统计某时间段小组聚会总人数
+        /// </summary>
+        /// <param name="gatherType">聚会形式</param>
+        /// <param name="startTime">开始时间</param>
+        /// <param name="endTime">结束时间</param>
+        public List<ResRptGatherGroup> GetGatherGroupList(int gatherType, DateTime? startTime = null, DateTime? endTime = null)
+        {
+            var gList = gatherService.List("", "", gatherType, startTime, endTime);
+
+            var resDate = new List<ResRptGatherGroup>();
+
+            foreach (var item in gList.Where(a => a.SignTime.DayOfWeek == DayOfWeek.Sunday).GroupBy(x => new { x.UserName, x.GroupName }))
+            {
+                resDate.Add(new ResRptGatherGroup
+                {
+                    GroupName = item.Key.GroupName,
+                    GroupNum = item.Count()
+                });
+            }
+
+            var res = new List<ResRptGatherGroup>();
+
+            foreach (var model in resDate.GroupBy(x => x.GroupName))
+            {
+                res.Add(new ResRptGatherGroup
+                {
+                    GroupName = model.Key,
+                    GroupNum = model.Count()
+                });
+            }
+
+            return res;
+        }
+
+        /// <summary>
+        /// 获取小组聚会报表
+        /// </summary>
+        /// <param name="gatherType">聚会形式</param>
+        /// <param name="startTime">开始时间</param>
+        /// <param name="endTime">结束时间</param>
+        /// <returns></returns>
+	    public List<ResRptGather> GetRptGather(int gatherType, DateTime? startTime = null, DateTime? endTime = null)
+        {
+            var gList = gatherService.List("", "", gatherType, startTime, endTime);
+
+            var resDate = new List<ResRptGather>();
+
+            foreach (var item in gList.FindAll(x => x.SignTime.DayOfWeek == DayOfWeek.Sunday).GroupBy(y => y.SignTime.Date))
+            {
+                var rptDate = item.Key;
+                var list = new List<ResRptGatherGroup>();
+
+                foreach (var g in item.GroupBy(z => new { z.UserName, z.GroupName }))
+                {
+                    var model = new ResRptGatherGroup { GroupName = g.Key.GroupName, GroupNum = g.Count() };
+                    list.Add(model);
+                }
+
+                resDate.Add(new ResRptGather { GatherDate = rptDate.ToString("yyyy-MM-dd"), List = list });
+            }
+
+            return resDate;
+        }
+
         #region 辅助方法
 
         ///<summary> 

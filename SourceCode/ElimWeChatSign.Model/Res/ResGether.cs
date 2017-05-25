@@ -71,4 +71,35 @@ namespace ElimWeChatSign.Model
         /// </summary>
         public string SignRate { get; set; }
     }
+
+    /// <summary>
+    /// 小组总报表
+    /// </summary>
+    public class ResRptGatherGroup
+    {
+        /// <summary>
+        /// 小组名称
+        /// </summary>
+        public string GroupName { get; set; }
+        /// <summary>
+        /// 小组签到人数
+        /// </summary>
+        public int GroupNum { get; set; }
+    }
+
+    /// <summary>
+    /// 小组报表
+    /// </summary>
+    public class ResRptGather
+    {
+        /// <summary>
+        /// 时间
+        /// </summary>
+        public string GatherDate { get; set; }
+
+        /// <summary>
+        /// 小组详情
+        /// </summary>
+        public List<ResRptGatherGroup> List { get; set; }
+    }
 }
