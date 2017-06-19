@@ -15,16 +15,17 @@ namespace ElimWeChatSign.Business
 	{
 		private GatherService gatherService = new GatherService();
 
-		/// <summary>
-		/// 签到
-		/// </summary>
-		/// <param name="gatherId">签到标识[空为添加]</param>
-		/// <param name="userName"></param>
-		/// <param name="groupName"></param>
-		/// <param name="gatherType">聚会形式(0:主日聚会;1:学生小组聚会;2:毕业人生小组聚会;3:祷告会)</param>
-		/// <param name="ipAddress">请求IP地址</param>
-		/// <returns></returns>
-		public ResGether Sign(string gatherId, string userName, string groupName, int gatherType, string ipAddress)
+	    /// <summary>
+	    /// 签到
+	    /// </summary>
+	    /// <param name="gatherId">签到标识[空为添加]</param>
+	    /// <param name="userName">姓名</param>
+	    /// <param name="gender">性别</param>
+	    /// <param name="groupName">小组名称</param>
+	    /// <param name="gatherType">聚会形式(0:主日聚会;1:学生小组聚会;2:毕业人生小组聚会;3:祷告会)</param>
+	    /// <param name="ipAddress">请求IP地址</param>
+	    /// <returns></returns>
+	    public ResGether Sign(string gatherId, string userName, int? gender, string groupName, int gatherType, string ipAddress)
 		{
 			if (userName.IsNull() || gatherType < 0)
 				throw new CustomerException(ResponseCode.ParamValueInvalid, "参数值无效");
@@ -39,6 +40,7 @@ namespace ElimWeChatSign.Business
 				GatherId = gatherId,
 				UserName = userName,
 				GroupName = groupName,
+                Gender = gender,
 				GatherType = gatherType,
 				IpAddress = ipAddress,
 				SignTime = DateTime.Now
@@ -51,10 +53,11 @@ namespace ElimWeChatSign.Business
 			{
 				GatherId = gather.GatherId,
 				UserName = gather.UserName,
+                Gender = gather.Gender,
 				GroupName = gather.GroupName,
 				GatherType = gather.GatherType,
 				IpAddress = gather.IpAddress,
-				SignTime = gather.SignTime.ToString("yyyy-MM-dd HH:mm:ss")
+				SignTime = gather.SignTime?.ToString("yyyy-MM-dd HH:mm:ss")
 			};
 
 			return resGather;
@@ -80,14 +83,15 @@ namespace ElimWeChatSign.Business
 			var gList = gatherService.List(userName, groupName, gatherType, startTime, endTime);
 
 			//输出对象
-			var resDate = gList.Where(x => x.SignTime.DayOfWeek == DayOfWeek.Sunday).Select(item => new ResGether
+			var resDate = gList.Where(x => x.SignTime?.DayOfWeek == DayOfWeek.Sunday).Select(item => new ResGether
 			{
 				GatherId = item.GatherId,
 				UserName = item.UserName,
-				GroupName = item.GroupName,
+			    Gender = item.Gender,
+                GroupName = item.GroupName,
 				GatherType = item.GatherType,
 				IpAddress = item.IpAddress,
-				SignTime = item.SignTime.ToString("yyyy-MM-dd HH:mm:ss")
+				SignTime = item.SignTime?.ToString("yyyy-MM-dd HH:mm:ss")
 			}).ToList();
 
 			return resDate;
@@ -107,14 +111,15 @@ namespace ElimWeChatSign.Business
 			var gList = gatherService.List(userName, groupName, gatherType, startTime, endTime);
 
 			//输出对象
-			var resDate = gList.Where(x=>x.SignTime.DayOfWeek == DayOfWeek.Sunday).Select(item => new ResGether
+			var resDate = gList.Where(x=>x.SignTime?.DayOfWeek == DayOfWeek.Sunday).Select(item => new ResGether
 			{
 				GatherId = item.GatherId,
 				UserName = item.UserName,
-				GroupName = item.GroupName,
+			    Gender = item.Gender,
+                GroupName = item.GroupName,
 				GatherType = item.GatherType,
 				IpAddress = item.IpAddress,
-				SignTime = item.SignTime.ToString("yyyy-MM-dd HH:mm:ss")
+				SignTime = item.SignTime?.ToString("yyyy-MM-dd HH:mm:ss")
 			}).ToList();
 
 			return resDate;
@@ -132,14 +137,15 @@ namespace ElimWeChatSign.Business
 			var gList = gatherService.List(userName, groupName, gatherType, null, null);
 
 			//输出对象
-			var resDate = gList.Where(x => x.SignTime.DayOfWeek == DayOfWeek.Sunday).Select(item => new ResGether
+			var resDate = gList.Where(x => x.SignTime?.DayOfWeek == DayOfWeek.Sunday).Select(item => new ResGether
 			{
 				GatherId = item.GatherId,
 				UserName = item.UserName,
-				GroupName = item.GroupName,
+			    Gender = item.Gender,
+                GroupName = item.GroupName,
 				GatherType = item.GatherType,
 				IpAddress = item.IpAddress,
-				SignTime = item.SignTime.ToString("yyyy-MM-dd HH:mm:ss")
+				SignTime = item.SignTime?.ToString("yyyy-MM-dd HH:mm:ss")
 			}).ToList();
 
 			return resDate;
@@ -163,18 +169,19 @@ namespace ElimWeChatSign.Business
             //if(endTime == null) { endTime = DateTime.Now.Date; }
 
             //var allCount = TotalWeeks(startTime.Value, endTime.Value, DayOfWeek.Sunday);
-            var allCount = gList.Where(x=>x.SignTime.DayOfWeek == DayOfWeek.Sunday).GroupBy(y=>y.SignTime.Date).Count();
+            var allCount = gList.Where(x=>x.SignTime?.DayOfWeek == DayOfWeek.Sunday).GroupBy(y=>y.SignTime?.Date).Count();
 
             var resDate = new List<ResGetherUser>();
 
-            foreach (var item in gList.GroupBy(x=> new {x.UserName, x.GroupName, x.GatherType }))
+            foreach (var item in gList.GroupBy(x=> new {x.UserName, x.Gender, x.GroupName, x.GatherType }))
             {
-                var count = item.ToList().FindAll(a=>a.SignTime.DayOfWeek == DayOfWeek.Sunday).GroupBy(x=>x.SignTime.Date).Count(); //某时间段内总签到次数
+                var count = item.ToList().FindAll(a=>a.SignTime?.DayOfWeek == DayOfWeek.Sunday).GroupBy(x=>x.SignTime?.Date).Count(); //某时间段内总签到次数
 
                 var model = new ResGetherUser
                 {
                     UserId = ExtendUtil.GuidToString(),
                     UserName = item.Key.UserName,
+                    Gender = item.Key.Gender,
                     GroupName = item.Key.GroupName,
                     GatherType = item.Key.GatherType,
                     Count = count,
@@ -227,16 +234,21 @@ namespace ElimWeChatSign.Business
 		/// <param name="type">聚会形式</param>
 		/// <param name="date">日期</param>
 		/// <returns></returns>
-		public List<string> GetSignNameList(int type, DateTime date)
+		public List<ResGatherList> GetSignNameList(int type, DateTime date)
 		{
 			DateTime? startTime = null, endTime = null;
 			startTime = Convert.ToDateTime(string.Format("{0}/{1}/{2} 00:00:00", date.Year, date.Month, date.Day));
 			endTime = Convert.ToDateTime(string.Format("{0}/{1}/{2} 23:59:59", date.Year, date.Month, date.Day));
 			var gList = gatherService.List("", "", type, startTime, endTime);
 
-			var nList = gList.GroupBy(x => x.UserName).Select(item => item.Key).ToList();
+		    //输出对象
+		    var resDate = gList.GroupBy(x => new { x.UserName, x.Gender }).Select(item => new ResGatherList
+            {
+                UserName = item.Key.UserName,
+                Gender = item.Key.Gender
+		    }).ToList();
 
-			return nList;
+		    return resDate;
 		}
 
         /// <summary>
@@ -251,7 +263,7 @@ namespace ElimWeChatSign.Business
 
             var resDate = new List<ResRptGatherGroup>();
 
-            foreach (var item in gList.Where(a => a.SignTime.DayOfWeek == DayOfWeek.Sunday).GroupBy(x => new { x.UserName, x.GroupName }))
+            foreach (var item in gList.Where(a => a.SignTime?.DayOfWeek == DayOfWeek.Sunday).GroupBy(x => new { x.UserName, x.GroupName }))
             {
                 resDate.Add(new ResRptGatherGroup
                 {
@@ -287,7 +299,7 @@ namespace ElimWeChatSign.Business
 
             var resDate = new List<ResRptGather>();
 
-            foreach (var item in gList.FindAll(x => x.SignTime.DayOfWeek == DayOfWeek.Sunday).GroupBy(y => y.SignTime.Date))
+            foreach (var item in gList.FindAll(x => x.SignTime?.DayOfWeek == DayOfWeek.Sunday).GroupBy(y => y.SignTime?.Date))
             {
                 var rptDate = item.Key;
                 var list = new List<ResRptGatherGroup>();
@@ -298,7 +310,7 @@ namespace ElimWeChatSign.Business
                     list.Add(model);
                 }
 
-                resDate.Add(new ResRptGather { GatherDate = rptDate.ToString("yyyy-MM-dd"), List = list });
+                resDate.Add(new ResRptGather { GatherDate = rptDate?.ToString("yyyy-MM-dd"), List = list });
             }
 
             return resDate;

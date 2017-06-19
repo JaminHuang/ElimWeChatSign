@@ -23,10 +23,14 @@ namespace ElimWeChatSign.Model
 		/// 小组名称
 		/// </summary>
 		public string GroupName { get; set; }
+        /// <summary>
+        /// 性别(0-女;1-男)
+        /// </summary>
+        public int? Gender { get; set; }
 		/// <summary>
 		/// 聚会形式(0:主日聚会;1:学生小组聚会;2:毕业人生小组聚会;3:祷告会)
 		/// </summary>
-		public int GatherType { get; set; }
+		public int? GatherType { get; set; }
 		/// <summary>
 		/// IP地址
 		/// </summary>
@@ -36,6 +40,19 @@ namespace ElimWeChatSign.Model
 		/// </summary>
 		public string SignTime { get; set; }
 	}
+
+    public class ResGatherList
+    {
+        /// <summary>
+        /// 用户姓名
+        /// </summary>
+        public string UserName { get; set; }
+        /// <summary>
+        /// 性别(0-女;1-男)
+        /// </summary>
+        public int? Gender { get; set; }
+
+    }
 
     /// <summary>
 	/// 签到输出
@@ -55,17 +72,21 @@ namespace ElimWeChatSign.Model
         /// </summary>
         public string GroupName { get; set; }
         /// <summary>
+        /// 性别(0-女;1-男)
+        /// </summary>
+        public int? Gender { get; set; }
+        /// <summary>
         /// 聚会形式(0:主日聚会;1:学生小组聚会;2:毕业人生小组聚会;3:祷告会)
         /// </summary>
-        public int GatherType { get; set; }
+        public int? GatherType { get; set; }
         /// <summary>
         /// 签到总次数
         /// </summary>
-        public int Count { get; set; }
+        public int? Count { get; set; }
         /// <summary>
         /// 签到总次数
         /// </summary>
-        public int AllCount { get; set; }
+        public int? AllCount { get; set; }
         /// <summary>
         /// 出勤率
         /// </summary>

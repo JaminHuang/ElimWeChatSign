@@ -1,9 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.ComponentModel;
 using Titan;
+using Titan.MySql;
+using Titan.SQLite;
+using Titan.SqlServer;
+using Titan.Oracle;
 using System.Runtime.Serialization;
 using System.ComponentModel.DataAnnotations;
+
 
 namespace ElimWeChatSign.Model
 {
@@ -50,7 +56,6 @@ namespace ElimWeChatSign.Model
         public Gather()
         {
 
-            SignTime = DateTime.Now;
 
         }
         #region propertys
@@ -73,10 +78,19 @@ namespace ElimWeChatSign.Model
         [DataMember]
         [DisplayName("姓名")]
         [Column(Size = 30)]
-        [Required(ErrorMessage = "姓名不允许空")]
         [MaxLength(30, ErrorMessage = "姓名不能超过30个字")]
 
         public string UserName { get; set; }
+
+
+        /// <summary>
+        /// 性别(0-女;1-男),
+        /// </summary>
+        [DataMember]
+        [DisplayName("性别(0-女;1-男)")]
+        [Column()]
+
+        public int? Gender { get; set; }
 
 
         /// <summary>
@@ -85,7 +99,6 @@ namespace ElimWeChatSign.Model
         [DataMember]
         [DisplayName("小组名称")]
         [Column(Size = 30)]
-        [Required(ErrorMessage = "小组名称不允许空")]
         [MaxLength(30, ErrorMessage = "小组名称不能超过30个字")]
 
         public string GroupName { get; set; }
@@ -97,9 +110,8 @@ namespace ElimWeChatSign.Model
         [DataMember]
         [DisplayName("聚会形式(0:主日聚会;1:学生小组聚会;2:毕业人生小组聚会;3:祷告会)")]
         [Column()]
-        [Required(ErrorMessage = "聚会形式(0:主日聚会;1:学生小组聚会;2:毕业人生小组聚会;3:祷告会)不允许空")]
 
-        public int GatherType { get; set; }
+        public int? GatherType { get; set; }
 
 
         /// <summary>
@@ -108,7 +120,6 @@ namespace ElimWeChatSign.Model
         [DataMember]
         [DisplayName("IP地址")]
         [Column(Size = 30)]
-        [Required(ErrorMessage = "IP地址不允许空")]
         [MaxLength(30, ErrorMessage = "IP地址不能超过30个字")]
 
         public string IpAddress { get; set; }
@@ -120,9 +131,8 @@ namespace ElimWeChatSign.Model
         [DataMember]
         [DisplayName("签到时间")]
         [Column()]
-        [Required(ErrorMessage = "签到时间不允许空")]
 
-        public DateTime SignTime { get; set; }
+        public DateTime? SignTime { get; set; }
 
 
         #endregion
@@ -149,6 +159,10 @@ namespace ElimWeChatSign.Model
         /// 姓名,
         /// </summary>
         public static PropertyExpression UserName { get { return instance.UserName; } }
+        /// <summary>
+        /// 性别(0-女;1-男),
+        /// </summary>
+        public static PropertyExpression Gender { get { return instance.Gender; } }
         /// <summary>
         /// 小组名称,
         /// </summary>
@@ -185,11 +199,12 @@ namespace ElimWeChatSign.Model
 
             this._GatherId = new PropertyExpression(prefix + "GatherId");
             this._UserName = new PropertyExpression(prefix + "UserName");
+            this._Gender = new PropertyExpression(prefix + "Gender");
             this._GroupName = new PropertyExpression(prefix + "GroupName");
             this._GatherType = new PropertyExpression(prefix + "GatherType");
             this._IpAddress = new PropertyExpression(prefix + "IpAddress");
             this._SignTime = new PropertyExpression(prefix + "SignTime");
-            ALL = new PropertyExpression[] { this._GatherId, this._UserName, this._GroupName, this._GatherType, this._IpAddress, this._SignTime };
+            ALL = new PropertyExpression[] { this._GatherId, this._UserName, this._Gender, this._GroupName, this._GatherType, this._IpAddress, this._SignTime };
         }
 
 
@@ -203,6 +218,11 @@ namespace ElimWeChatSign.Model
         /// 姓名,
         /// </summary>
         public PropertyExpression UserName { get { return _UserName; } }
+        private PropertyExpression _Gender;
+        /// <summary>
+        /// 性别(0-女;1-男),
+        /// </summary>
+        public PropertyExpression Gender { get { return _Gender; } }
         private PropertyExpression _GroupName;
         /// <summary>
         /// 小组名称,

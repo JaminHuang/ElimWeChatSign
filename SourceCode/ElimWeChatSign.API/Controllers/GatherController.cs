@@ -29,20 +29,21 @@ namespace ElimWeChatSign.API.Controllers
 			var dic = DeserializeParamServer(await Request.Content.ReadAsByteArrayAsync());
 			string gatherId = "", userName = "", groupName = "";
 			string ipAddress = Extension.GetIp();//获取请求IP地址
-			int gatherType = -1;
-			if (dic != null && dic.ContainsKey("userName") && dic.ContainsKey("gatherType"))
+			int gatherType = -1, gender = 3;
+			if (dic != null && dic.ContainsKey("userName") && dic.ContainsKey("gatherType") && dic.ContainsKey("gender"))
 			{
 				userName = dic["userName"].ToString();
 				gatherType = int.Parse(dic["gatherType"].ToString());
+				gender = int.Parse(dic["gender"].ToString());
 
-				if (dic.ContainsKey("groupName")) { groupName = dic["groupName"].ToString(); }
+                if (dic.ContainsKey("groupName")) { groupName = dic["groupName"].ToString(); }
 				if (dic.ContainsKey("gatherId")) { gatherId = dic["gatherId"].ToString(); }
 			}
 			else
 			{
 				throw new CustomerException(ResponseCode.MissParam, "缺少参数");
 			}
-			var result = gatherBusiness.Sign(gatherId, userName, groupName, gatherType, ipAddress);
+			var result = gatherBusiness.Sign(gatherId, userName, gender, groupName, gatherType, ipAddress);
 
 			res.Content = result;
 			return res;
