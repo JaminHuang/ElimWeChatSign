@@ -31,6 +31,28 @@ namespace ElimWeChatSign.Service
 			return model;
 		}
 
+	    /// <summary>
+	    /// 根据用户名和时间判断是否已经签到
+	    /// </summary>
+	    /// <param name="userName">用户名称</param>
+	    /// <param name="dateTime">签到日期</param>
+	    /// <returns></returns>
+	    public bool IsExitsSign(string userName, DateTime? dateTime)
+        {
+            var startTime = dateTime.Value.Date;
+            var endTime = startTime.AddDays(1).AddSeconds(-1);
+
+	        var query = new QueryExpression { EntityType = typeof(Gather) };
+            query.Selects.Add(Gather_.ALL);
+            query.Wheres.Add(Gather_.UserName.TEqual(userName)
+                        .And(Gather_.SignTime.TGreaterThanOrEqual(startTime)
+                        .And(Gather_.SignTime.TLessThanOrEqual(endTime))));
+
+            var gather = Session.SelectOne(query) as Gather;
+
+            return gather != null;
+        }
+
 		/// <summary>
 		/// 获取列表
 		/// </summary>

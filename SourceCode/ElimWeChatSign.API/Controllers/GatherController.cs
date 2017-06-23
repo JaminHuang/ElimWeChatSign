@@ -17,10 +17,6 @@ namespace ElimWeChatSign.API.Controllers
 		/// <summary>
 		/// 签到
 		/// </summary>
-		/// param:
-		/// userName:姓名
-		/// groupName:小组[可空]
-		/// gatherType:聚会形式
 		/// <returns></returns>
 		[HttpPost]
 		public async Task<ResponseMessage> Sign()

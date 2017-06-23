@@ -35,6 +35,12 @@ namespace ElimWeChatSign.Business
 			//if (allowIp != ipAddress)
 			//	throw new CustomerException(ResponseCode.IpAddressError, "该IP不允许签到");
 
+            //判断用户今天是否已经签到
+		    var isSign = gatherService.IsExitsSign(userName, DateTime.Now);
+
+		    if (isSign)
+		        throw new CustomerException(ResponseCode.ResDataIsEmpty, "该用户今天已经签到");
+
 			var model = new Gather
 			{
 				GatherId = gatherId,
