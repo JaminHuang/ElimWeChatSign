@@ -1,0 +1,11 @@
+﻿[general]
+debug = yes
+monitor = yes
+url_site = http://localhost:5002/
+
+[attribute]
+www = {}
+open = {}
+
+[mysql]
+connection = ZBqMKx700bbWAxCZQQhQ1ydrsRshw/HvjU1ssvNfYiajj2/RBiPXBVLj8skxq39oPmk46cK+qiCEvMVqQiCaJruRXt2asOLp1yJkiQIXUZT0wq9eYKoQLwZHEFgfcpHA
