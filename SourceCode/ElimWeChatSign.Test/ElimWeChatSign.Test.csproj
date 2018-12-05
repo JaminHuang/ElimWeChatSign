@@ -16,6 +16,7 @@
     <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
     <IsCodedUITest>False</IsCodedUITest>
     <TestProjectType>UnitTest</TestProjectType>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -54,9 +55,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ElimWeChatSign.Core\ElimWeChatSign.Core.csproj">
-      <Project>{01f718fe-b1ab-4e21-823b-63cda23ecf89}</Project>
-      <Name>ElimWeChatSign.Core</Name>
+    <ProjectReference Include="..\..\..\..\Common\JaminHuang.Util\JaminHuang.Util.csproj">
+      <Project>{CE92E410-E71B-4CC8-A0AC-87E2AF60912A}</Project>
+      <Name>JaminHuang.Util</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

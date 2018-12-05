@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Text;
-using ElimWeChatSign.Core;
+using JaminHuang.Util;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ElimWeChatSign.Test
@@ -21,15 +21,25 @@ namespace ElimWeChatSign.Test
 			var ivStr = UnicodeEncoding.UTF8.GetString(ServerAuthTokenIv);
 		}
 
-		/// <summary>
-		/// 加密分析
+        /// <summary>
+		/// 随机生成
 		/// </summary>
 		[TestMethod]
+        public void Guid_Test()
+        {
+            var str = ExtendUtil.GuidToString();
+            Console.WriteLine(str);
+        }
+
+        /// <summary>
+        /// 加密分析
+        /// </summary>
+        [TestMethod]
 		public void AES_ClientEncry_Test()
 		{
-			var str = "123456";
-			var strCry = CryptographyUtil.AESEncryClient(str);
-            var strCryMD5 = strCry.ToMd5();
+			var str = "Data Source=103.45.8.16;database=elimsign;uid=jaminhuang;Password=opN9d1t3AUQ#Kzyy;";
+			var strCry = CryptographyUtil.AESEncryServer(str);
+            Console.WriteLine(strCry);
 		}
 
 		/// <summary>
@@ -38,8 +48,8 @@ namespace ElimWeChatSign.Test
 		[TestMethod]
 		public void AES_ClientDecrp_Test()
 		{
-			var str = "KKua+3FBmTAAxnXZWzBSWw==";
-			var strCry = CryptographyUtil.AESDecryptClient(str);
+			var str = "ufYIXTGVmOkXMMcbIduJCm+GZAzR4nevgSFD3sxGQkDBf1Os/rpsI24ey8UI4twjecObucHKVR/2OEWUD1uFGqgCX2Vbcbv7MIvMKoopOTc=";
+			var strCry = CryptographyUtil.AESDecryptServer(str);
 		}
 	}
 }

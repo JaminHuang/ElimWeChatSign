@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ElimWeChatSign.Core;
 using ElimWeChatSign.Model;
+using JaminHuang.Util;
 using Titan;
 
 namespace ElimWeChatSign.Service
@@ -31,28 +31,6 @@ namespace ElimWeChatSign.Service
 			return model;
 		}
 
-	    /// <summary>
-	    /// 根据用户名和时间判断是否已经签到
-	    /// </summary>
-	    /// <param name="userName">用户名称</param>
-	    /// <param name="dateTime">签到日期</param>
-	    /// <returns></returns>
-	    public bool IsExitsSign(string userName, DateTime? dateTime)
-        {
-            var startTime = dateTime.Value.Date;
-            var endTime = startTime.AddDays(1).AddSeconds(-1);
-
-	        var query = new QueryExpression { EntityType = typeof(Gather) };
-            query.Selects.Add(Gather_.ALL);
-            query.Wheres.Add(Gather_.UserName.TEqual(userName)
-                        .And(Gather_.SignTime.TGreaterThanOrEqual(startTime)
-                        .And(Gather_.SignTime.TLessThanOrEqual(endTime))));
-
-            var gather = Session.SelectOne(query) as Gather;
-
-            return gather != null;
-        }
-
 		/// <summary>
 		/// 获取列表
 		/// </summary>
@@ -67,6 +45,8 @@ namespace ElimWeChatSign.Service
 			var query = new QueryExpression();
             query.EntityType = typeof(Gather);
 			query.Selects.Add(Gather_.ALL);
+            if (!churchId.IsNull())
+                query.Wheres.Add(Gather_.ChurchId.TEqual(churchId));
 			if (!userName.IsNull())
 				query.Wheres.Add(Gather_.UserName.TLike(userName));
 			if (!groupName.IsNull())
@@ -96,18 +76,21 @@ namespace ElimWeChatSign.Service
             return Session.Delete(model) > 0;
 	    }
 
-		/// <summary>
-		/// 获取指定时间的签到人数
-		/// </summary>
-		/// <param name="type">聚会形式</param>
-		/// <param name="startTime">开始时间</param>
-		/// <param name="endTime">结束时间</param>
-		/// <returns></returns>
-		public int GetSignCount(int type, DateTime? startTime, DateTime? endTime)
+        /// <summary>
+        /// 获取指定时间的签到人数
+        /// </summary>
+        /// <param name="churchId">教会标识</param>
+        /// <param name="type">聚会形式</param>
+        /// <param name="startTime">开始时间</param>
+        /// <param name="endTime">结束时间</param>
+        /// <returns></returns>
+        public int GetSignCount(string churchId, int type, DateTime? startTime, DateTime? endTime)
 		{
 			var query = new QueryExpression();
             query.EntityType = typeof(Gather);
             query.Selects.Add(Gather_.ALL);
+            if (!churchId.IsNull())
+                query.Wheres.Add(Gather_.ChurchId.TEqual(churchId));
 			if (type != -1)
 				query.Wheres.Add(Gather_.GatherType.TEqual(type));
 			if (startTime != null)

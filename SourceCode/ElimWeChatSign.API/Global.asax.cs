@@ -1,36 +1,65 @@
 ﻿using System;
+using System.Linq;
 using System.Web;
 using System.Web.Http;
-using System.Web.Http.Filters;
+using System.Web.Http.Cors;
 using System.Web.Mvc;
-using System.Web.Routing;
-using ElimWeChatSign.Core;
+using Autofac;
+using Autofac.Integration.WebApi;
+using ElimWeChatSign.IBusiness;
+using JaminHuang.Core;
+using JaminHuang.Core.Model;
+using JaminHuang.Util;
 using Newtonsoft.Json;
 
 namespace ElimWeChatSign.API
 {
     public class WebApiApplication : HttpApplication
     {
-        protected void Application_Start()
+        public static void Register(HttpConfiguration config)
         {
-			// 在应用程序启动时运行的代码
-			AreaRegistration.RegisterAllAreas();
-			GlobalConfiguration.Configure(WebApiConfig.Register);
-			//路由地址配置
-			RouteConfig.RegisterRoutes(RouteTable.Routes);
+            config.MapHttpAttributeRoutes();
 
-			//配置LogNet4
-			log4net.Config.XmlConfigurator.Configure();
+            //跨域配置
+            config.EnableCors(new EnableCorsAttribute("*", "*", "*"));
 
-			FilterConfig.RegisterGlobalFilters(new HttpFilterCollection());
+            //限制访问
+            config.Filters.Add(new WhiteListAttribute(WhiteListSite.WWW));
+            config.Filters.Add(new SignatureAttribute());
+            config.Filters.Add(new AntiSqlInjectAttribute());
+            config.Filters.Add(new ExceptionAttribute());
         }
 
-		/// <summary>
-		/// 应用程序出错执行
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		protected void Application_Error(object sender, EventArgs e)
+        public static void InitIoC()
+        {
+            var builder = new ContainerBuilder();
+            var baseType = typeof(IDependency);
+            var assemblys = AppDomain.CurrentDomain.GetAssemblies().ToList();
+            builder.RegisterApiControllers(assemblys.ToArray()).PropertiesAutowired();
+            builder.RegisterAssemblyTypes(assemblys.ToArray())
+                .Where(_ => baseType.IsAssignableFrom(_) && _ != baseType)
+                .AsImplementedInterfaces();
+            var container = builder.Build();
+            HttpConfiguration config = GlobalConfiguration.Configuration;
+            config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
+        }
+
+        protected void Application_Start()
+        {
+            InitIoC();
+
+            AreaRegistration.RegisterAllAreas();
+            GlobalConfiguration.Configure(Register);
+            GlobalConfiguration.Configuration.Formatters.XmlFormatter.SupportedMediaTypes.Clear();
+            GlobalConfiguration.Configuration.Formatters[0] = new JilFormatter();
+        }
+
+        /// <summary>
+        /// 应用程序出错执行
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void Application_Error(object sender, EventArgs e)
 		{
 			var ex = Server.GetLastError();
 			var exception = ex as HttpException;
@@ -48,9 +77,9 @@ namespace ElimWeChatSign.API
 						JsonConvert.SerializeObject(
 							new ResponseMessage
 							{
-								Code = ResponseCode.NotFound,
-								Content = string.Empty,
-								ErrorMsg = string.Empty,
+								Code = (int)ResponseCode.NotFound,
+								Data = string.Empty,
+								Msg = string.Empty,
 								ServerTime = DateTime.UtcNow.CreateTimestamp()
 							}));
 					Response.Flush();
@@ -63,9 +92,9 @@ namespace ElimWeChatSign.API
 						JsonConvert.SerializeObject(
 							new ResponseMessage
 							{
-								Code = ResponseCode.ServerInternalError,
-								Content = string.Empty,
-								ErrorMsg = string.Empty,
+								Code = (int)ResponseCode.ServerInternalError,
+								Data = string.Empty,
+								Msg = string.Empty,
 								ServerTime = DateTime.UtcNow.CreateTimestamp()
 							}));
 					Response.Flush();
