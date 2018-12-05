@@ -14,11 +14,15 @@ namespace ElimWeChatSign.API.Controllers
     {
 		private GatherBusiness gatherBusiness = new GatherBusiness();
 
-		/// <summary>
-		/// 签到
-		/// </summary>
-		/// <returns></returns>
-		[HttpPost]
+        /// <summary>
+        /// 签到
+        /// </summary>
+        /// param:
+        /// userName:姓名
+        /// groupName:小组[可空]
+        /// gatherType:聚会形式
+        /// <returns></returns>
+        [Route("sign"), HttpPost]
 		public async Task<ResponseMessage> Sign()
 		{
 			var res = new ResponseMessage();
