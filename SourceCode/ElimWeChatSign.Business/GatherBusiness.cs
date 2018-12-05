@@ -39,12 +39,6 @@ namespace ElimWeChatSign.Business
 		    if (isSign)
 		        throw new CustomerException(ResponseCode.ResDataIsEmpty, "该用户今天已经签到");
 
-            //判断用户今天是否已经签到
-		    var isSign = gatherService.IsExitsSign(userName, DateTime.Now);
-
-		    if (isSign)
-		        throw new CustomerException(ResponseCode.ResDataIsEmpty, "该用户今天已经签到");
-
 			var model = new Gather
 			{
 				GatherId = gatherId,

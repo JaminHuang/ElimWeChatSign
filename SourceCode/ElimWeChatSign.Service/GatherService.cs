@@ -31,16 +31,17 @@ namespace ElimWeChatSign.Service
 			return model;
 		}
 
-		/// <summary>
-		/// 获取列表
-		/// </summary>
-		/// <param name="userName">姓名[模糊查询]</param>
-		/// <param name="groupName">小组名称</param>
-		/// <param name="type">聚会形式(0:主日聚会;1:学生小组聚会;2:毕业人生小组聚会;3:祷告会)</param>
-		/// <param name="startTime">开始时间</param>
-		/// <param name="endTime">结束时间</param>
-		/// <returns></returns>
-		public List<Gather> List(string userName, string groupName, int type = -1, DateTime? startTime = null, DateTime? endTime = null)
+        /// <summary>
+        /// 获取列表
+        /// </summary>
+        /// <param name="churchId">团契标识</param>
+        /// <param name="userName">姓名[模糊查询]</param>
+        /// <param name="groupName">小组名称</param>
+        /// <param name="type">聚会形式(0:主日聚会;1:学生小组聚会;2:毕业人生小组聚会;3:祷告会)</param>
+        /// <param name="startTime">开始时间</param>
+        /// <param name="endTime">结束时间</param>
+        /// <returns></returns>
+        public List<Gather> List(string churchId, string userName, string groupName, int type = -1, DateTime? startTime = null, DateTime? endTime = null)
 		{
 			var query = new QueryExpression();
             query.EntityType = typeof(Gather);
@@ -102,5 +103,33 @@ namespace ElimWeChatSign.Service
 		    Session.SelectCollection(gList, query);
 			return gList.GroupBy(x=>x.UserName).Count();
 		}
-	}
+
+        /// <summary>
+        /// 判断作者
+        /// </summary>
+        /// <param name="churchId"></param>
+        /// <param name="userName"></param>
+        /// <param name="dateline"></param>
+        /// <returns></returns>
+        public bool IsExitsSign(string churchId, string userName, DateTime? dateline)
+        {
+            var startTime = dateline.Value.Date;
+            var endTime = dateline.Value.Date.AddDays(1);
+
+            var query = new QueryExpression();
+            query.EntityType = typeof(Gather);
+            query.Selects.Add(Gather_.ALL);
+            query.Wheres.Add(Gather_.ChurchId.TEqual(churchId)
+                        .And(Gather_.UserName.TEqual(userName)
+                        .And(Gather_.SignTime.TGreaterThanOrEqual(startTime)
+                        .And(Gather_.SignTime.TLessThan(endTime)))));
+
+            var gList = new List<Gather>();
+            var totalCount = Session.SelectCollection(gList, query);
+
+            return totalCount == 1;
+
+        }
+
+    }
 }
