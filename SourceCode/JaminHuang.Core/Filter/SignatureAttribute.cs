@@ -33,6 +33,14 @@ namespace JaminHuang.Core
 
         };
 
+        /// <summary>
+        /// 不需要监控的接口
+        /// </summary>
+        protected List<string> no_monitors = new List<string>()
+        {
+
+        };
+
         public SignatureAttribute()
         {
             this.TimeoutSeconds = 60 * 60;
@@ -46,6 +54,11 @@ namespace JaminHuang.Core
         public override void OnActionExecuting(HttpActionContext actionContext)
         {
             var cfx = ConfigHelper.GetInstance();
+
+            if (cfx["general"]["monitor"].BoolValue && !no_monitors.Contains(actionContext.Request.RequestUri.AbsolutePath))
+            {
+                Logger.Monitor(typeof(Action), "请求地址：" + actionContext.Request.RequestUri + " 入参：" + actionContext.Request.Content.ReadAsStringAsync().Result + "  请求头：" + GetLogRequestHeaders(actionContext.Request.Headers));
+            }
 
             if (cfx["general"]["debug"].BoolValue)
             {

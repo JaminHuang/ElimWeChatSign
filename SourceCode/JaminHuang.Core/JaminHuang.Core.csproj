@@ -72,7 +72,7 @@
     <Compile Include="Filter\LimitAttribute.cs" />
     <Compile Include="Filter\SignatureAttribute.cs" />
     <Compile Include="Filter\WhiteListAttribute.cs" />
-    <Compile Include="Log\Logger.cs" />
+    <Compile Include="Logger\Logger.cs" />
     <Compile Include="Model\Global.cs" />
     <Compile Include="Model\JilFormatter.cs" />
     <Compile Include="Model\RateLimiting.cs" />

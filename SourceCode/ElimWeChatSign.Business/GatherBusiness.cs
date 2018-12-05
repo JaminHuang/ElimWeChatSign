@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using ElimWeChatSign.IBusiness;
 using ElimWeChatSign.Model;
 using ElimWeChatSign.Service;
