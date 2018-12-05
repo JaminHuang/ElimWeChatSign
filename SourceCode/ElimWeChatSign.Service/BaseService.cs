@@ -1,5 +1,6 @@
-﻿using System;
-using ElimWeChatSign.Core;
+﻿using JaminHuang.Util;
+using SharpConfig;
+using System;
 using Titan;
 using Titan.MySql;
 using Titan.SqlTracer;
@@ -8,6 +9,8 @@ namespace ElimWeChatSign.Service
 {
     public class BaseService
     {
+        private static Configuration cfx = ConfigHelper.GetInstance();
+
         /// <summary>
         /// SqlLog语句日志地址
         /// </summary>
@@ -15,7 +18,7 @@ namespace ElimWeChatSign.Service
         /// <summary>
         /// 数据库连接字符串
         /// </summary>
-        private static string ConnectionString = CryptographyUtil.AESDecryptServer(AppConfiguration.GetKey("ElimSign"));
+        private static string ConnectionString = CryptographyUtil.AESDecryptServer(cfx["mysql"]["connection"].StringValue);
         /// <summary>
         /// 数据库类型
         /// </summary>
