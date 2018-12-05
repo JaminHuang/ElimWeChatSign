@@ -30,8 +30,59 @@ namespace ElimWeChatSign.Core
 			return reg.IsMatch(strInput);
 		}
 
-		#region 身份证验证
-		public static bool CheckIdCard(this string idNum)
+        /// <summary>
+        /// 检测是否是正确的Url
+        /// </summary>
+        /// <param name="strUrl">要验证的Url</param>
+        /// <returns>判断结果</returns>
+        public static bool IsURL(string strUrl)
+        {
+            return Regex.IsMatch(strUrl, @"^(http|https)\://([a-zA-Z0-9\.\-]+(\:[a-zA-Z0-9\.&%\$\-]+)*@)*((25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9])\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[0-9])|localhost|([a-zA-Z0-9\-]+\.)*[a-zA-Z0-9\-]+\.(com|edu|gov|int|mil|net|org|biz|arpa|info|name|pro|aero|coop|museum|[a-zA-Z]{1,10}))(\:[0-9]+)*(/($|[a-zA-Z0-9\.\,\?\'\\\+&%\$#\=~_\-]+))*$");
+        }
+
+        /// <summary>
+        /// 是否为ip
+        /// </summary>
+        /// <param name="ip"></param>
+        /// <returns></returns>
+        public static bool IsIP(string ip)
+        {
+            return Regex.IsMatch(ip, @"^((2[0-4]\d|25[0-5]|[01]?\d\d?)\.){3}(2[0-4]\d|25[0-5]|[01]?\d\d?)$");
+
+        }
+
+        /// <summary>
+        /// 字段串是否为Null或为""(空)
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static bool StrIsNullOrEmpty(string str)
+        {
+            if (str == null || str.Trim() == "")
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// 字段串是否为Null或为""(空)
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static bool IsEmpty(string str)
+        {
+            if (str == null || str.Trim() == "")
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        #region 身份证验证
+        public static bool CheckIdCard(this string idNum)
 		{
 			switch (idNum.Length)
 			{
