@@ -151,7 +151,6 @@
     <Content Include="packages.config" />
     <Content Include="Config\base.cfx" />
     <Content Include="Config\ipdata.config" />
-    <None Include="Properties\PublishProfiles\AL.ElimSign.API.pubxml" />
     <None Include="Properties\PublishProfiles\Local.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
