@@ -25,7 +25,6 @@ namespace ElimWeChatSign.API
 
             //限制访问
             config.Filters.Add(new WhiteListAttribute(WhiteListSite.WWW));
-            config.Filters.Add(new SignatureAttribute());
             config.Filters.Add(new AntiSqlInjectAttribute());
             config.Filters.Add(new ExceptionAttribute());
         }
