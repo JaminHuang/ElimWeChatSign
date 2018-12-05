@@ -164,14 +164,6 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Common\JaminHuang.Core\JaminHuang.Core.csproj">
-      <Project>{228C39AB-7E1A-459F-A439-452BABE412D1}</Project>
-      <Name>JaminHuang.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Common\JaminHuang.Util\JaminHuang.Util.csproj">
-      <Project>{CE92E410-E71B-4CC8-A0AC-87E2AF60912A}</Project>
-      <Name>JaminHuang.Util</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ElimWeChatSign.Business\ElimWeChatSign.Business.csproj">
       <Project>{a351d64e-1d51-4270-bc05-ea1e3c3654d8}</Project>
       <Name>ElimWeChatSign.Business</Name>
@@ -183,6 +175,14 @@
     <ProjectReference Include="..\ElimWeChatSign.Model\ElimWeChatSign.Model.csproj">
       <Project>{4CBB15C6-4B7E-43F6-944E-B6809EDF3017}</Project>
       <Name>ElimWeChatSign.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\JaminHuang.Core\JaminHuang.Core.csproj">
+      <Project>{228C39AB-7E1A-459F-A439-452BABE412D1}</Project>
+      <Name>JaminHuang.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\JaminHuang.Util\JaminHuang.Util.csproj">
+      <Project>{CE92E410-E71B-4CC8-A0AC-87E2AF60912A}</Project>
+      <Name>JaminHuang.Util</Name>
     </ProjectReference>
     <ProjectReference Include="..\Titan\Titan.csproj">
       <Project>{0bc8d532-2680-4634-add1-46392736e193}</Project>

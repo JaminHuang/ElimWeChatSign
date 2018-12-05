@@ -55,7 +55,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Common\JaminHuang.Util\JaminHuang.Util.csproj">
+    <ProjectReference Include="..\JaminHuang.Util\JaminHuang.Util.csproj">
       <Project>{CE92E410-E71B-4CC8-A0AC-87E2AF60912A}</Project>
       <Name>JaminHuang.Util</Name>
     </ProjectReference>
