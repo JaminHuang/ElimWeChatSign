@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JaminHuang.Util;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -33,18 +34,7 @@ namespace JaminHuang.Core
             this.Code = (int)ResponseCode.Success;
             this.Msg = "";
             this.Data = "";
-            this.ServerTime = CreateTimestamp();
-        }
-
-        /// <summary>
-        /// 根据指定时间返回时间戳
-        /// </summary>
-        /// <returns></returns>
-        public static long CreateTimestamp()
-        {
-            DateTime dateTime = DateTime.UtcNow;
-            var utcTime = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-            return Convert.ToInt64((dateTime - utcTime).TotalMilliseconds);
+            this.ServerTime = DateTime.Now.ToTimestamp();
         }
     }
 

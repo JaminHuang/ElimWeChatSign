@@ -248,8 +248,9 @@ namespace ElimWeChatSign.Business
 			var gList = gatherService.List(churchId, "", "", type, startTime, endTime);
 
 		    //输出对象
-		    var resDate = gList.GroupBy(x => new { x.UserName, x.Gender }).Select(item => new ResGatherList
+		    var resDate = gList.GroupBy(x => new { x.UserName, x.Gender, x.GatherId }).Select(item => new ResGatherList
             {
+                GatherId = item.Key.GatherId,
                 UserName = item.Key.UserName,
                 Gender = item.Key.Gender
 		    }).ToList();

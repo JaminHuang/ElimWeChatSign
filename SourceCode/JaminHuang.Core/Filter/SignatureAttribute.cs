@@ -43,7 +43,7 @@ namespace JaminHuang.Core
 
         public SignatureAttribute()
         {
-            this.TimeoutSeconds = 60 * 60;
+            this.TimeoutSeconds = 60 * 60 * 1000;
         }
 
         public SignatureAttribute(int seconds)
@@ -104,7 +104,7 @@ namespace JaminHuang.Core
                 {
                     throw new Exception("公钥错误");
                 }
-                if (DateTime.UtcNow.ToTimestamp() - timestamp > TimeoutSeconds || timestamp - DateTime.UtcNow.ToTimestamp() > TimeoutSeconds)
+                if (DateTime.Now.ToTimestamp() - timestamp > TimeoutSeconds || timestamp - DateTime.Now.ToTimestamp() > TimeoutSeconds)
                 {
                     throw new Exception("请校准你的本机时间");
                 }

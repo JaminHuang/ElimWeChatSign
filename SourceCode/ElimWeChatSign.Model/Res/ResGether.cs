@@ -44,6 +44,10 @@ namespace ElimWeChatSign.Model
     public class ResGatherList
     {
         /// <summary>
+		/// 签到标识
+		/// </summary>
+		public string GatherId { get; set; }
+        /// <summary>
         /// 用户姓名
         /// </summary>
         public string UserName { get; set; }
