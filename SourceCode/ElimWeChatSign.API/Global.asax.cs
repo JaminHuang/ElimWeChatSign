@@ -4,9 +4,6 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Mvc;
-using Autofac;
-using Autofac.Integration.WebApi;
-using ElimWeChatSign.IBusiness;
 using JaminHuang.Core;
 using JaminHuang.Core.Model;
 using JaminHuang.Util;
@@ -30,24 +27,8 @@ namespace ElimWeChatSign.API
             config.Filters.Add(new ExceptionAttribute());
         }
 
-        public static void InitIoC()
-        {
-            var builder = new ContainerBuilder();
-            var baseType = typeof(IDependency);
-            var assemblys = AppDomain.CurrentDomain.GetAssemblies().ToList();
-            builder.RegisterApiControllers(assemblys.ToArray()).PropertiesAutowired();
-            builder.RegisterAssemblyTypes(assemblys.ToArray())
-                .Where(_ => baseType.IsAssignableFrom(_) && _ != baseType)
-                .AsImplementedInterfaces();
-            var container = builder.Build();
-            HttpConfiguration config = GlobalConfiguration.Configuration;
-            config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
-        }
-
         protected void Application_Start()
         {
-            InitIoC();
-
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(Register);
             GlobalConfiguration.Configuration.Formatters.XmlFormatter.SupportedMediaTypes.Clear();

@@ -1,5 +1,4 @@
-﻿using ElimWeChatSign.IBusiness;
-using JaminHuang.Core;
+﻿using JaminHuang.Core;
 using JaminHuang.Util;
 using Newtonsoft.Json;
 using SharpConfig;
@@ -14,11 +13,6 @@ namespace ElimWeChatSign.API.Controllers
 {
     public class BaseController : ApiController
     {
-        /// <summary>
-        /// 签到对象
-        /// </summary>
-        protected IGatherBusiness _gather;
-
         /// <summary>
         /// 输出对象
         /// </summary>

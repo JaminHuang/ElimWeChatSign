@@ -44,10 +44,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ElimWeChatSign.IBusiness\ElimWeChatSign.IBusiness.csproj">
-      <Project>{5CF41DC0-3790-450C-98CE-E26005E495DF}</Project>
-      <Name>ElimWeChatSign.IBusiness</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ElimWeChatSign.Model\ElimWeChatSign.Model.csproj">
       <Project>{4cbb15c6-4b7e-43f6-944e-b6809edf3017}</Project>
       <Name>ElimWeChatSign.Model</Name>
@@ -63,10 +59,6 @@
     <ProjectReference Include="..\JaminHuang.Util\JaminHuang.Util.csproj">
       <Project>{CE92E410-E71B-4CC8-A0AC-87E2AF60912A}</Project>
       <Name>JaminHuang.Util</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Titan\Titan.csproj">
-      <Project>{0bc8d532-2680-4634-add1-46392736e193}</Project>
-      <Name>Titan</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

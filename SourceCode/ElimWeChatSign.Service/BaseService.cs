@@ -1,5 +1,4 @@
-﻿using ElimWeChatSign.IBusiness;
-using JaminHuang.Util;
+﻿using JaminHuang.Util;
 using SharpConfig;
 using System;
 using Titan;
@@ -8,7 +7,7 @@ using Titan.SqlTracer;
 
 namespace ElimWeChatSign.Service
 {
-    public class BaseService : IDependency
+    public class BaseService
     {
         private static Configuration cfx = ConfigHelper.GetInstance();
 

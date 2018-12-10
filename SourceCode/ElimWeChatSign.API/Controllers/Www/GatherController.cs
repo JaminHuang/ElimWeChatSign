@@ -1,11 +1,7 @@
-﻿using ElimWeChatSign.IBusiness;
+﻿using ElimWeChatSign.Business;
 using JaminHuang.Core;
 using JaminHuang.Util;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 
@@ -17,10 +13,7 @@ namespace ElimWeChatSign.API.Controllers
     [RoutePrefix("www/gather")]
     public class GatherController : WwwBaseController
     {
-		public GatherController(IGatherBusiness gather)
-        {
-            _gather = gather;
-        }
+        private GatherBusiness _gather = new GatherBusiness();
 
         /// <summary>
         /// 签到

@@ -41,14 +41,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac, Version=4.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Files\Refrences\Autofac.dll</HintPath>
-    </Reference>
-    <Reference Include="Autofac.Integration.WebApi, Version=4.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Files\Refrences\Autofac.Integration.WebApi.dll</HintPath>
-    </Reference>
     <Reference Include="Jil, Version=2.16.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Jil.2.16.0\lib\net45\Jil.dll</HintPath>
     </Reference>
@@ -167,10 +159,6 @@
       <Project>{a351d64e-1d51-4270-bc05-ea1e3c3654d8}</Project>
       <Name>ElimWeChatSign.Business</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ElimWeChatSign.IBusiness\ElimWeChatSign.IBusiness.csproj">
-      <Project>{5CF41DC0-3790-450C-98CE-E26005E495DF}</Project>
-      <Name>ElimWeChatSign.IBusiness</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ElimWeChatSign.Model\ElimWeChatSign.Model.csproj">
       <Project>{4CBB15C6-4B7E-43F6-944E-B6809EDF3017}</Project>
       <Name>ElimWeChatSign.Model</Name>
@@ -186,10 +174,6 @@
     <ProjectReference Include="..\JaminHuang.Util\JaminHuang.Util.csproj">
       <Project>{CE92E410-E71B-4CC8-A0AC-87E2AF60912A}</Project>
       <Name>JaminHuang.Util</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Titan\Titan.csproj">
-      <Project>{0bc8d532-2680-4634-add1-46392736e193}</Project>
-      <Name>Titan</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

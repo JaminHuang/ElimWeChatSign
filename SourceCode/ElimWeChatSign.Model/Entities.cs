@@ -4,9 +4,6 @@ using System.Data;
 using System.ComponentModel;
 using Titan;
 using Titan.MySql;
-using Titan.SQLite;
-using Titan.SqlServer;
-using Titan.Oracle;
 using System.Runtime.Serialization;
 using System.ComponentModel.DataAnnotations;
 

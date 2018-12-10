@@ -1,5 +1,5 @@
 ﻿[general]
-debug = yes
+debug = no
 monitor = yes
 url_site = http://localhost:5002/
 

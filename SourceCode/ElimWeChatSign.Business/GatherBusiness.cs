@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ElimWeChatSign.IBusiness;
 using ElimWeChatSign.Model;
 using ElimWeChatSign.Service;
 using JaminHuang.Core;
@@ -12,7 +11,7 @@ namespace ElimWeChatSign.Business
 	/// <summary>
 	/// 聚会签到业务逻辑
 	/// </summary>
-	public class GatherBusiness : IGatherBusiness
+	public class GatherBusiness
     {
 		private GatherService gatherService = new GatherService();
 
