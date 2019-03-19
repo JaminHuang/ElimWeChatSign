@@ -40,6 +40,11 @@ namespace ElimWeChatSign.Business
                 FollowName = followName
             };
 
+            //判断用户是否有关怀对象
+            var follow = userFollowService.GetUserFollow(churchId, userName, gender, groupName);
+            if (follow != null)
+                throw new CustomerException(ResponseCode.ResDataIsEmpty, "您已经有关怀对象：" + follow.FollowName);
+
             var user = userFollowService.Add(model);
 
             //输出对象
@@ -83,6 +88,30 @@ namespace ElimWeChatSign.Business
             }
 
             return resUserFollow;
+        }
+
+        /// <summary>
+        /// 获取已经被关怀的对象
+        /// </summary>
+        /// <param name="churchId"></param>
+        /// <param name="gender"></param>
+        /// <param name="groupName"></param>
+        /// <returns></returns>
+        public List<ResUserFollow> GetFollowList(string churchId, int gender, string groupName)
+        {
+            if (groupName.IsNull() || !new int[] { 0, 1 }.Contains(gender))
+                throw new CustomerException(ResponseCode.ParamValueInvalid, "参数值无效");
+
+            var list = userFollowService.GetUserFollowList(churchId, gender, groupName);
+
+            var resFollowList = new List<ResUserFollow>();
+
+            foreach(var item in list)
+            {
+                resFollowList.Add(new ResUserFollow { FollowId = item.FollowId, FollowName = item.FollowName, UserName = item.UserName, GroupName = item.GroupName, Gender = item.Gender, Status = 1 });
+            }
+
+            return resFollowList;
         }
     }
 }

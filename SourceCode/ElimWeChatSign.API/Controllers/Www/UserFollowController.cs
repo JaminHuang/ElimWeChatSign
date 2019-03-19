@@ -63,7 +63,7 @@ namespace ElimWeChatSign.API.Controllers.Www
         /// gender:性别
         /// groupName:小组
         /// <returns></returns>
-        [Route("get/userfollow"), HttpPost]
+        [Route("get"), HttpPost]
         public async Task<ResponseMessage> GetUserFollow()
         {
             var dic = DeserializeParamServer(await Request.Content.ReadAsByteArrayAsync());
@@ -81,6 +81,36 @@ namespace ElimWeChatSign.API.Controllers.Www
                 throw new CustomerException(ResponseCode.MissParam, "缺少参数");
             }
             var result = _userFollow.GetUserFollow(churchId, userName, gender, groupName);
+
+            res.Data = result;
+            return res;
+        }
+
+        /// <summary>
+        /// 获取已被关怀的对象列表
+        /// </summary>
+        /// param:
+        /// churchId:教会标识
+        /// gender:性别
+        /// groupName:小组
+        /// <returns></returns>
+        [Route("list"), HttpPost]
+        public async Task<ResponseMessage> List()
+        {
+            var dic = DeserializeParamServer(await Request.Content.ReadAsByteArrayAsync());
+            string groupName = "", churchId = "";
+            int gender = 3;
+            if (dic != null && dic.ContainsKey("groupName") && dic.ContainsKey("gender") && dic.ContainsKey("churchId"))
+            {
+                groupName = dic["groupName"].ToString();
+                gender = int.Parse(dic["gender"].ToString());
+                churchId = dic["churchId"].ToString();
+            }
+            else
+            {
+                throw new CustomerException(ResponseCode.MissParam, "缺少参数");
+            }
+            var result = _userFollow.GetFollowList(churchId, gender, groupName);
 
             res.Data = result;
             return res;

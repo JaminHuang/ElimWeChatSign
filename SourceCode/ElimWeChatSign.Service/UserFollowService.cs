@@ -41,13 +41,35 @@ namespace ElimWeChatSign.Service
             query.Selects.Add(UserFollow_.ALL);
             query.Wheres.Add(UserFollow_.ChurchId.TEqual(churchId)
                         .And(UserFollow_.UserName.TEqual(userName)
-                        .And(UserFollow_.Gender.TEqual(userName)
+                        .And(UserFollow_.Gender.TEqual(gender)
                         .And(UserFollow_.GroupName.TEqual(groupName)))));
 
             var uList = new List<UserFollow>();
             Session.SelectCollection(uList, query);
 
             return uList.FirstOrDefault();
+        }
+
+        /// <summary>
+        /// 获取已经被关怀的对象
+        /// </summary>
+        /// <param name="churchId"></param>
+        /// <param name="gender"></param>
+        /// <param name="groupName"></param>
+        /// <returns></returns>
+        public List<UserFollow> GetUserFollowList(string churchId, int gender, string groupName)
+        {
+            var query = new QueryExpression();
+            query.EntityType = typeof(UserFollow);
+            query.Selects.Add(UserFollow_.ALL);
+            query.Wheres.Add(UserFollow_.ChurchId.TEqual(churchId)
+                        .And(UserFollow_.Gender.TEqual(gender)
+                        .And(UserFollow_.GroupName.TEqual(groupName))));
+
+            var uList = new List<UserFollow>();
+            Session.SelectCollection(uList, query);
+
+            return uList;
         }
     }
 }
