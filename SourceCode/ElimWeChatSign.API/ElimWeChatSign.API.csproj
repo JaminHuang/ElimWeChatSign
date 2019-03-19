@@ -133,6 +133,7 @@
   <ItemGroup>
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\Www\GatherController.cs" />
+    <Compile Include="Controllers\Www\UserFollowController.cs" />
     <Compile Include="Controllers\Www\WwwBaseController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

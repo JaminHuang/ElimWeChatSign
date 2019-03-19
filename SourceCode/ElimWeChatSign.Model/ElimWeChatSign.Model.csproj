@@ -45,6 +45,7 @@
     <Compile Include="Entities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Res\ResGether.cs" />
+    <Compile Include="Res\ResUserFollow.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Req\" />

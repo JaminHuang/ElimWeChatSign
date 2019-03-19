@@ -4,6 +4,9 @@ using System.Data;
 using System.ComponentModel;
 using Titan;
 using Titan.MySql;
+using Titan.SQLite;
+using Titan.SqlServer;
+using Titan.Oracle;
 using System.Runtime.Serialization;
 using System.ComponentModel.DataAnnotations;
 
@@ -470,6 +473,258 @@ namespace ElimWeChatSign.Model
     [DataContract]
     [Table]
     public partial class Churchs : EntityList<Church>
+    {
+
+    }
+    #endregion
+
+
+    #region UserFollow
+    /// <summary>
+    /// UserFollow,用户关怀表
+    /// </summary>
+    [DataContract]
+    [Table]
+    public partial class UserFollow
+    {
+
+        public UserFollow()
+        {
+
+            UpdateTime = DateTime.Now;
+
+        }
+        #region propertys
+
+        /// <summary>
+        /// 教会标识,
+        /// </summary>
+        [DataMember]
+        [DisplayName("教会标识")]
+        [Column(IsPrimaryKey = true, Size = 20)]
+        [Required(ErrorMessage = "教会标识不允许空")]
+        [MaxLength(20, ErrorMessage = "教会标识不能超过20个字")]
+
+        public string ChurchId { get; set; }
+
+
+        /// <summary>
+        /// 主键,
+        /// </summary>
+        [DataMember]
+        [DisplayName("主键")]
+        [Column(IsPrimaryKey = true, Size = 30)]
+        [Required(ErrorMessage = "主键不允许空")]
+        [MaxLength(30, ErrorMessage = "主键不能超过30个字")]
+
+        public string FollowId { get; set; }
+
+
+        /// <summary>
+        /// 姓名,
+        /// </summary>
+        [DataMember]
+        [DisplayName("姓名")]
+        [Column(Size = 30)]
+        [Required(ErrorMessage = "姓名不允许空")]
+        [MaxLength(30, ErrorMessage = "姓名不能超过30个字")]
+
+        public string UserName { get; set; }
+
+
+        /// <summary>
+        /// 关怀人,
+        /// </summary>
+        [DataMember]
+        [DisplayName("关怀人")]
+        [Column(Size = 30)]
+        [Required(ErrorMessage = "关怀人不允许空")]
+        [MaxLength(30, ErrorMessage = "关怀人不能超过30个字")]
+
+        public string FollowName { get; set; }
+
+
+        /// <summary>
+        /// 性别(0-女;1-男),
+        /// </summary>
+        [DataMember]
+        [DisplayName("性别(0-女;1-男)")]
+        [Column()]
+        [Required(ErrorMessage = "性别(0-女;1-男)不允许空")]
+
+        public int Gender { get; set; }
+
+
+        /// <summary>
+        /// 小组名称,
+        /// </summary>
+        [DataMember]
+        [DisplayName("小组名称")]
+        [Column(Size = 30)]
+        [Required(ErrorMessage = "小组名称不允许空")]
+        [MaxLength(30, ErrorMessage = "小组名称不能超过30个字")]
+
+        public string GroupName { get; set; }
+
+
+        /// <summary>
+        /// 最后修改时间,
+        /// </summary>
+        [DataMember]
+        [DisplayName("最后修改时间")]
+        [Column()]
+        [Required(ErrorMessage = "最后修改时间不允许空")]
+
+        public DateTime UpdateTime { get; set; }
+
+
+        #endregion
+
+        #region link objects
+
+        /// <summary>
+        /// UserFollow.Church,
+        /// </summary>
+        [DataMember]
+        [Relation("this.ChurchId=out.ChurchId")]
+        public Church Church { get; set; }
+
+
+
+        #endregion
+    }
+    #endregion
+    #region UserFollowProperties
+    public static partial class UserFollow_
+    {
+
+        private static UserFollowDescriptor instance = new UserFollowDescriptor("");
+
+        /// <summary>
+        /// 全部字段
+        /// </summary>
+        public static PropertyExpression[] ALL { get { return instance.ALL; } }
+
+
+        /// <summary>
+        /// 教会标识,
+        /// </summary>
+        public static PropertyExpression ChurchId { get { return instance.ChurchId; } }
+        /// <summary>
+        /// 主键,
+        /// </summary>
+        public static PropertyExpression FollowId { get { return instance.FollowId; } }
+        /// <summary>
+        /// 姓名,
+        /// </summary>
+        public static PropertyExpression UserName { get { return instance.UserName; } }
+        /// <summary>
+        /// 关怀人,
+        /// </summary>
+        public static PropertyExpression FollowName { get { return instance.FollowName; } }
+        /// <summary>
+        /// 性别(0-女;1-男),
+        /// </summary>
+        public static PropertyExpression Gender { get { return instance.Gender; } }
+        /// <summary>
+        /// 小组名称,
+        /// </summary>
+        public static PropertyExpression GroupName { get { return instance.GroupName; } }
+        /// <summary>
+        /// 最后修改时间,
+        /// </summary>
+        public static PropertyExpression UpdateTime { get { return instance.UpdateTime; } }
+
+
+
+        /// <summary>
+        /// UserFollow.Church,
+        /// </summary>
+        public static ChurchDescriptor Church { get { return instance.Church; } }
+
+        public static IEnumerable<PropertyExpression> Exclude(params PropertyExpression[] properties)
+        {
+            return instance.Exclude(properties);
+        }
+
+    }
+    #endregion
+    #region UserFollowDescriptor
+    public partial class UserFollowDescriptor : ObjectDescriptorBase
+    {
+
+        public UserFollowDescriptor(string prefix) : base(prefix)
+        {
+
+            this._ChurchId = new PropertyExpression(prefix + "ChurchId");
+            this._FollowId = new PropertyExpression(prefix + "FollowId");
+            this._UserName = new PropertyExpression(prefix + "UserName");
+            this._FollowName = new PropertyExpression(prefix + "FollowName");
+            this._Gender = new PropertyExpression(prefix + "Gender");
+            this._GroupName = new PropertyExpression(prefix + "GroupName");
+            this._UpdateTime = new PropertyExpression(prefix + "UpdateTime");
+            ALL = new PropertyExpression[] { this._ChurchId, this._FollowId, this._UserName, this._FollowName, this._Gender, this._GroupName, this._UpdateTime };
+        }
+
+
+        private PropertyExpression _ChurchId;
+        /// <summary>
+        /// 教会标识,
+        /// </summary>
+        public PropertyExpression ChurchId { get { return _ChurchId; } }
+        private PropertyExpression _FollowId;
+        /// <summary>
+        /// 主键,
+        /// </summary>
+        public PropertyExpression FollowId { get { return _FollowId; } }
+        private PropertyExpression _UserName;
+        /// <summary>
+        /// 姓名,
+        /// </summary>
+        public PropertyExpression UserName { get { return _UserName; } }
+        private PropertyExpression _FollowName;
+        /// <summary>
+        /// 关怀人,
+        /// </summary>
+        public PropertyExpression FollowName { get { return _FollowName; } }
+        private PropertyExpression _Gender;
+        /// <summary>
+        /// 性别(0-女;1-男),
+        /// </summary>
+        public PropertyExpression Gender { get { return _Gender; } }
+        private PropertyExpression _GroupName;
+        /// <summary>
+        /// 小组名称,
+        /// </summary>
+        public PropertyExpression GroupName { get { return _GroupName; } }
+        private PropertyExpression _UpdateTime;
+        /// <summary>
+        /// 最后修改时间,
+        /// </summary>
+        public PropertyExpression UpdateTime { get { return _UpdateTime; } }
+
+
+
+        private ChurchDescriptor _Church;
+        public ChurchDescriptor Church
+        {
+            get
+            {
+                if (_Church == null) _Church = new ChurchDescriptor(base.Prefix + "Church.");
+                return _Church;
+            }
+        }
+    }
+    #endregion
+
+
+    #region UserFollows
+    /// <summary>
+    /// UserFollow,用户关怀表
+    /// </summary>
+    [DataContract]
+    [Table]
+    public partial class UserFollows : EntityList<UserFollow>
     {
 
     }

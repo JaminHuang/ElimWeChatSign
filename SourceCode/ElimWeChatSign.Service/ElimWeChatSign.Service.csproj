@@ -46,6 +46,7 @@
     <Compile Include="BaseService.cs" />
     <Compile Include="GatherService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserFollowService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ElimWeChatSign.Model\ElimWeChatSign.Model.csproj">

@@ -291,9 +291,9 @@ namespace ElimWeChatSign.API.Controllers
         public async Task<ResponseMessage> GetRptGather()
         {
             var dic = DeserializeParamServer(await Request.Content.ReadAsByteArrayAsync());
-            string groupName = "", churchId = "";
+            string churchId = "";
             int gatherType = -1;
-            DateTime? date = null, startTime = null, endTime = null;
+            DateTime? startTime = null, endTime = null;
             if (dic != null && dic.ContainsKey("gatherType"))
             {
                 gatherType = int.Parse(dic["gatherType"].ToString());
