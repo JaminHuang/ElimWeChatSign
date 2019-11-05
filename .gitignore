@@ -10,3 +10,4 @@ SqlLog/
 sqlLog/
 log/
 *.bak
+.idea/
